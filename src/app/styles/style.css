@@ -1,0 +1,13 @@
+:root {
+  --bg-paper: #FDFBF7; 
+  --text-ink: #2C2A29; 
+  --accent-heritage: #C05A45; 
+  --locked-item: #8A8580; 
+  
+  --font-serif: 'Merriweather', serif; 
+  --font-sans: 'Inter', sans-serif;
+}
+
+body {
+  background: var(--text-ink);
+}

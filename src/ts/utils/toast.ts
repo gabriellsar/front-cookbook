@@ -1,4 +1,4 @@
-import type { ToastType } from '../types.ts';
+import type { ToastType } from '../../types.ts';
 
 let dismissTimer: ReturnType<typeof setTimeout> | null = null;
 

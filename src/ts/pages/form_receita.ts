@@ -3,7 +3,7 @@ import { recipeMetaService } from '../services/recipeMeta.ts';
 import { renderNav } from '../services/navAuth.ts';
 import { requireAuth, getCurrentUser } from '../services/auth.ts';
 import { showToast } from '../utils/toast.ts';
-import type { ApiRecipe } from '../types.ts';
+import type { ApiRecipe } from '../../types.ts';
 
 requireAuth('../templates/login.html');
 

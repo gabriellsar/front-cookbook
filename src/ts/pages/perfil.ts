@@ -6,7 +6,7 @@ import { favoritesService } from '../services/favorites.ts';
 import { authService } from '../services/api.ts';
 import { showToast } from '../utils/toast.ts';
 import { formatDate, getInitials } from '../utils/format.ts';
-import type { RecipeViewModel } from '../types.ts';
+import type { RecipeViewModel } from '../../types.ts';
 
 requireAuth('../templates/login.html');
 

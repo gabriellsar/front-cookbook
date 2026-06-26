@@ -8,7 +8,7 @@ import { initRating } from '../components/rating.ts';
 import { initServingCalculator } from '../components/serving-calculator.ts';
 import { showToast } from '../utils/toast.ts';
 import { formatDate, getInitials } from '../utils/format.ts';
-import type { RecipeViewModel, ApiRecipe } from '../types.ts';
+import type { RecipeViewModel, ApiRecipe } from '../../types.ts';
 
 const params = new URLSearchParams(location.search);
 const recipeId = Number(params.get('id'));

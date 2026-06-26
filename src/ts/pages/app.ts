@@ -6,7 +6,7 @@ import { favoritesService } from '../services/favorites.ts';
 import { initForkModal, openForkModal } from '../components/fork-modal.ts';
 import { showToast } from '../utils/toast.ts';
 import { formatDate } from '../utils/format.ts';
-import type { RecipeViewModel } from '../types.ts';
+import type { RecipeViewModel } from '../../types.ts';
 
 let allRecipes: RecipeViewModel[] = [];
 let activeFilter = 'all';

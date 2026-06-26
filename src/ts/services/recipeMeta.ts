@@ -1,4 +1,4 @@
-import type { ApiRecipe, RecipeUIMetadata, RecipeViewModel } from '../types.ts';
+import type { ApiRecipe, RecipeUIMetadata, RecipeViewModel } from '../../types.ts';
 
 const STORAGE_KEY = 'panela_recipe_meta';
 

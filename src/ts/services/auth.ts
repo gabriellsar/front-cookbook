@@ -1,4 +1,4 @@
-import type { AuthState, LoginResponse } from '../types.ts';
+import type { AuthState, LoginResponse } from '../../types.ts';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000/api';
 

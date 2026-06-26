@@ -76,6 +76,7 @@ async function handleRegister(e: SubmitEvent): Promise<void> {
     saveAuth(loginData, username);
     window.location.href = 'dashboard.html';
   } catch (err) {
+    console.error('Falha no registro:', err);
     if (err instanceof ApiError && err.status === 400) {
       const body = err.body as Record<string, string[]> | null;
       if (body?.['username']) {

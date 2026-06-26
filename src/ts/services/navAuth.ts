@@ -1,6 +1,8 @@
 import { isLoggedIn, getCurrentUser, logout } from './auth.ts';
 
 export function renderNav(): void {
+  setupNavToggle();
+
   const container = document.getElementById('nav-auth-container');
   if (!container) return;
 
@@ -10,9 +12,20 @@ export function renderNav(): void {
   if (!user) return;
 
   container.innerHTML = `
-    <span class="prof-name" style="font-size:.82rem;font-weight:600">${user.username}</span>
-    <button id="btn-logout" class="btn-o" style="cursor:pointer">Sair</button>
+    <a href="perfil.html" class="nav-user"><i class="fa-solid fa-circle-user"></i> ${user.username}</a>
+    <button id="btn-logout" class="btn-o"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
   `;
 
   document.getElementById('btn-logout')?.addEventListener('click', () => logout());
+}
+
+// Menu hamburger (mobile)
+function setupNavToggle(): void {
+  const toggle = document.getElementById('nav-toggle');
+  const links = document.getElementById('nav-links');
+  if (!toggle || !links) return;
+
+  toggle.addEventListener('click', () => {
+    links.classList.toggle('open');
+  });
 }

@@ -50,14 +50,14 @@ export interface AuthState {
 // --- Tipos somente frontend (não vêm da API) ---
 
 export interface RecipeUIMetadata {
-  emoji: string;
+  icon: string;
   backgroundColor: string;
   tags: string[];
   localRating: number;
 }
 
 export interface RecipeViewModel extends ApiRecipe {
-  emoji: string;
+  icon: string;
   backgroundColor: string;
   tags: string[];
   isFork: boolean;

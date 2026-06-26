@@ -14,7 +14,7 @@ const params = new URLSearchParams(location.search);
 const recipeId = Number(params.get('id'));
 
 if (!recipeId) {
-  window.location.href = 'index.html';
+  window.location.href = 'dashboard.html';
 }
 
 function getEl<T extends HTMLElement>(id: string): T | null {
@@ -35,18 +35,14 @@ function renderDetail(r: RecipeViewModel): void {
   const hero = getEl('recipe-hero');
   if (hero) {
     hero.style.background = r.backgroundColor;
-    hero.style.fontSize = '5rem';
-    hero.style.display = 'flex';
-    hero.style.alignItems = 'center';
-    hero.style.justifyContent = 'center';
-    hero.textContent = r.emoji;
+    hero.innerHTML = `<i class="fa-solid ${r.icon}"></i>`;
   }
 
   // Tags
   const tagsEl = getEl('recipe-tags');
   if (tagsEl) {
     tagsEl.innerHTML = r.tags.length
-      ? r.tags.map((t) => `<span class="rcard-tag" style="margin-right:4px">${t}</span>`).join('')
+      ? r.tags.map((t) => `<span class="d-tag">${t}</span>`).join('')
       : '';
   }
 
@@ -56,10 +52,10 @@ function renderDetail(r: RecipeViewModel): void {
   if (authorBar) {
     const initials = getInitials(r.author_name);
     authorBar.innerHTML = `
-      <div style="width:32px;height:32px;border-radius:50%;background:var(--tr);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.75rem;color:#fff">${initials}</div>
-      <span style="font-size:.85rem">por <strong>${r.author_name}</strong></span>
-      <span style="font-size:.78rem;color:var(--ink3)">${formatDate(r.created_at)}</span>
-      ${r.isFork ? '<span style="font-size:.78rem;background:var(--tr3);color:var(--tr);padding:2px 8px;border-radius:10px">⑂ Fork</span>' : ''}
+      <div class="d-author-av">${initials}</div>
+      <span class="d-author-name">por <strong>${r.author_name}</strong></span>
+      <span class="d-author-date"><i class="fa-regular fa-calendar"></i> ${formatDate(r.created_at)}</span>
+      ${r.isFork ? '<span class="d-author-fork"><i class="fa-solid fa-code-branch"></i> Fork</span>' : ''}
     `;
   }
 
@@ -84,7 +80,7 @@ function renderDetail(r: RecipeViewModel): void {
     if (lineage) lineage.style.display = '';
     const breadcrumb = getEl('fork-tree-breadcrumb');
     if (breadcrumb) {
-      breadcrumb.textContent = `"${r.forked_from_title}" → "${r.title}"`;
+      breadcrumb.innerHTML = `<span class="fork-tree-node">"${r.forked_from_title}"</span> <i class="fa-solid fa-arrow-right fork-connector"></i> <span class="fork-tree-node">"${r.title}"</span>`;
     }
     if (r.affectionate_note) {
       const noteEl = document.createElement('div');
@@ -101,8 +97,10 @@ function renderDetail(r: RecipeViewModel): void {
       .map((ing) => {
         const numericQty = parseFloat(ing.quantity);
         const baseAttr = !isNaN(numericQty) ? ` data-base="${numericQty}"` : '';
-        const lock = ing.is_locked ? ' 🔒' : '';
-        return `<li><span class="ing-q"${baseAttr}>${ing.quantity}</span> ${ing.name}${lock}</li>`;
+        const lock = ing.is_locked
+          ? ' <i class="fa-solid fa-lock ing-lock" title="Segredo de família trancado"></i>'
+          : '';
+        return `<li class="ing-item"><span class="ing-n">${ing.name}${lock}</span><span class="ing-q"${baseAttr}>${ing.quantity}</span></li>`;
       })
       .join('');
   }
@@ -113,12 +111,16 @@ function renderDetail(r: RecipeViewModel): void {
     const sorted = [...r.steps].sort((a, b) => a.step_number - b.step_number);
     stepsList.innerHTML = sorted
       .map(
-        (s) => `
-        <div class="step-block" style="display:flex;gap:12px;margin-bottom:1rem">
-          <div style="min-width:28px;height:28px;border-radius:50%;background:var(--tr);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;flex-shrink:0">${s.step_number}</div>
-          <p style="margin:0;padding-top:4px">${s.instruction}${s.is_locked ? ' 🔒' : ''}</p>
-        </div>
-      `,
+        (s) => {
+          const lock = s.is_locked
+            ? ' <i class="fa-solid fa-lock ing-lock" title="Segredo de família trancado"></i>'
+            : '';
+          return `
+        <div class="step">
+          <div class="step-n">${s.step_number}</div>
+          <div><p class="step-tx">${s.instruction}${lock}</p></div>
+        </div>`;
+        },
       )
       .join('');
   }
@@ -140,18 +142,19 @@ function renderForks(forks: RecipeViewModel[]): void {
       .slice(0, 5)
       .map(
         (f) => `
-        <div class="fork-card" style="display:flex;align-items:center;gap:10px;padding:.5rem;border-radius:8px;background:var(--bg2);margin-bottom:.4rem;cursor:pointer" data-id="${f.id}">
-          <span style="font-size:1.4rem">${f.emoji}</span>
-          <div>
-            <div style="font-weight:600;font-size:.85rem">${f.title}</div>
-            <div style="font-size:.72rem;color:var(--ink3)">por ${f.author_name}</div>
+        <div class="fork-item" data-id="${f.id}">
+          <span class="fork-item-emoji"><i class="fa-solid ${f.icon}"></i></span>
+          <div class="fork-item-info">
+            <div class="fork-item-title">${f.title}</div>
+            <div class="fork-item-meta">por ${f.author_name}</div>
           </div>
+          <i class="fa-solid fa-chevron-right fork-item-arrow"></i>
         </div>
       `,
       )
       .join('');
 
-    forkList.querySelectorAll<HTMLElement>('.fork-card').forEach((card) => {
+    forkList.querySelectorAll<HTMLElement>('.fork-item').forEach((card) => {
       card.addEventListener('click', () => {
         window.location.href = `receita.html?id=${card.dataset['id']}`;
       });
@@ -162,7 +165,7 @@ function renderForks(forks: RecipeViewModel[]): void {
   if (vis) {
     vis.innerHTML = forks
       .slice(0, 5)
-      .map((f) => `<span style="font-size:.78rem;background:var(--tr3);color:var(--tr);padding:2px 8px;border-radius:10px;margin:2px;display:inline-block">⑂ ${f.author_name}</span>`)
+      .map((f) => `<span class="ftv-chip"><i class="fa-solid fa-code-branch"></i> ${f.author_name}</span>`)
       .join('');
   }
 }
@@ -175,17 +178,19 @@ function setupActions(r: RecipeViewModel): void {
 
   const favBtn = getEl('btn-fav');
   if (favBtn) {
-    favBtn.textContent = favoritesService.has(r.id) ? '♥ Favoritado' : '♡ Favoritar';
+    const favLabel = (on: boolean) =>
+      `<i class="fa-${on ? 'solid' : 'regular'} fa-heart"></i> ${on ? 'Favoritado' : 'Favoritar'}`;
+    favBtn.innerHTML = favLabel(favoritesService.has(r.id));
     favBtn.addEventListener('click', () => {
       const added = favoritesService.toggle(r.id);
-      favBtn.textContent = added ? '♥ Favoritado' : '♡ Favoritar';
+      favBtn.innerHTML = favLabel(added);
     });
   }
 
   const forkBtn = getEl('btn-fork');
   if (forkBtn) {
     if (isOwner) {
-      forkBtn.textContent = '✏️ Editar receita';
+      forkBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Editar receita';
       forkBtn.addEventListener('click', () => {
         window.location.href = `form_receita.html?id=${r.id}&edit=true`;
       });
@@ -216,15 +221,14 @@ function setupActions(r: RecipeViewModel): void {
     const metaBar = getEl('recipe-meta-bar');
     if (metaBar) {
       const delBtn = document.createElement('button');
-      delBtn.className = 'btn-o';
-      delBtn.textContent = '🗑 Excluir';
-      delBtn.style.marginLeft = '8px';
+      delBtn.className = 'btn-danger';
+      delBtn.innerHTML = '<i class="fa-solid fa-trash"></i> Excluir';
       delBtn.addEventListener('click', async () => {
         if (!confirm(`Excluir "${r.title}"? Esta ação não pode ser desfeita.`)) return;
         try {
           await recipeService.delete(r.id);
           showToast('Receita excluída.', 'ok');
-          setTimeout(() => (window.location.href = 'index.html'), 1000);
+          setTimeout(() => (window.location.href = 'dashboard.html'), 1000);
         } catch {
           showToast('Erro ao excluir receita.', 'inf');
         }
@@ -278,7 +282,7 @@ async function init(): Promise<void> {
   } catch (err) {
     if (err instanceof ApiError && err.status === 404) {
       showToast('Receita não encontrada.', 'inf');
-      setTimeout(() => (window.location.href = 'index.html'), 1500);
+      setTimeout(() => (window.location.href = 'dashboard.html'), 1500);
     } else {
       showToast('Erro ao carregar receita.', 'inf');
     }

@@ -26,8 +26,8 @@ function newIngredientRow(qty = '', name = '', apiId?: number, isLocked = false)
   const user = getCurrentUser();
   const lockCheckbox =
     user?.role === 'GUARDIAN'
-      ? `<label style="font-size:.75rem;display:flex;align-items:center;gap:4px">
-           <input type="checkbox" class="lock-chk" ${isLocked ? 'checked' : ''}> 🔒
+      ? `<label class="lock-label" title="Trancar como segredo de família">
+           <input type="checkbox" class="lock-chk" ${isLocked ? 'checked' : ''}> <i class="fa-solid fa-lock"></i>
          </label>`
       : '';
 
@@ -35,7 +35,7 @@ function newIngredientRow(qty = '', name = '', apiId?: number, isLocked = false)
     <input class="fl-input ing-qty" type="text" placeholder="Ex: 300g" value="${qty}">
     <input class="fl-input ing-name" type="text" placeholder="Ex: farinha de trigo" value="${name}">
     ${lockCheckbox}
-    <button type="button" class="btn-rm" aria-label="Remover ingrediente">×</button>
+    <button type="button" class="btn-rm" aria-label="Remover ingrediente"><i class="fa-solid fa-xmark"></i></button>
   `;
 
   row.querySelector('.btn-rm')?.addEventListener('click', () => {
@@ -67,8 +67,8 @@ function newStepRow(instruction = '', apiId?: number, isLocked = false): HTMLEle
   const user = getCurrentUser();
   const lockCheckbox =
     user?.role === 'GUARDIAN'
-      ? `<label style="font-size:.75rem;display:flex;align-items:center;gap:4px">
-           <input type="checkbox" class="lock-chk" ${isLocked ? 'checked' : ''}> 🔒
+      ? `<label class="lock-label" title="Trancar como segredo de família">
+           <input type="checkbox" class="lock-chk" ${isLocked ? 'checked' : ''}> <i class="fa-solid fa-lock"></i>
          </label>`
       : '';
 
@@ -78,7 +78,7 @@ function newStepRow(instruction = '', apiId?: number, isLocked = false): HTMLEle
       <textarea class="fl-input fl-ta step-inst" style="min-height:70px" placeholder="Descreva este passo…">${instruction}</textarea>
       ${lockCheckbox}
     </div>
-    <button type="button" class="btn-rm" aria-label="Remover passo">×</button>
+    <button type="button" class="btn-rm" aria-label="Remover passo"><i class="fa-solid fa-xmark"></i></button>
   `;
 
   row.querySelector('.btn-rm')?.addEventListener('click', () => {
@@ -348,7 +348,7 @@ async function handleSubmit(e: SubmitEvent, originalRecipe?: ApiRecipe): Promise
       // Metadados visuais
       recipeMetaService.setMeta(newRecipe.id, {
         tags,
-        emoji: recipeMetaService.randomEmoji(),
+        icon: recipeMetaService.randomIcon(),
         backgroundColor: recipeMetaService.randomBg(),
       });
 

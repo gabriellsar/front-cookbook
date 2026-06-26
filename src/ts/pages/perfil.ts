@@ -22,20 +22,20 @@ function profileRecipeCard(r: RecipeViewModel, onDelete: (id: number) => void): 
   card.style.cursor = 'default';
 
   const forkInfo = r.isFork && r.forked_from_title
-    ? `<div style="font-size:.72rem;color:var(--sl)">⑂ de "${r.forked_from_title}"</div>`
+    ? `<div class="rcard-fork-info"><i class="fa-solid fa-code-branch"></i> de "${r.forked_from_title}"</div>`
     : '';
 
   card.innerHTML = `
-    <div class="rcard-img" style="background:${r.backgroundColor};font-size:2.8rem;display:flex;align-items:center;justify-content:center;min-height:100px;position:relative">
-      ${r.emoji}
+    <div class="rcard-img" style="background:${r.backgroundColor}">
+      <i class="fa-solid ${r.icon}"></i>
     </div>
-    <div class="rcard-body" style="padding:.7rem .85rem .85rem">
-      <div class="rcard-title" style="font-weight:700;font-size:.92rem;margin-bottom:3px;cursor:pointer" data-id="${r.id}">${r.title}</div>
-      <div class="rcard-meta" style="font-size:.72rem;color:var(--ink3);margin-bottom:6px">${formatDate(r.created_at)}</div>
+    <div class="rcard-body">
+      <div class="rcard-title" data-id="${r.id}">${r.title}</div>
+      <div class="rcard-meta"><i class="fa-regular fa-calendar"></i> ${formatDate(r.created_at)}</div>
       ${forkInfo}
-      <div style="display:flex;gap:6px;margin-top:8px">
-        <button class="btn-o btn-edit" data-id="${r.id}" style="font-size:.75rem;padding:4px 10px">✏️ Editar</button>
-        <button class="btn-o btn-del" data-id="${r.id}" style="font-size:.75rem;padding:4px 10px;color:var(--danger,#c0392b)">🗑 Excluir</button>
+      <div class="rcard-actions">
+        <button class="btn-mini btn-edit" data-id="${r.id}"><i class="fa-solid fa-pen"></i> Editar</button>
+        <button class="btn-mini btn-mini-danger btn-del" data-id="${r.id}"><i class="fa-solid fa-trash"></i> Excluir</button>
       </div>
     </div>
   `;
@@ -101,10 +101,10 @@ function renderSaved(all: RecipeViewModel[]): void {
       card.className = 'rcard';
       card.style.cursor = 'pointer';
       card.innerHTML = `
-        <div class="rcard-img" style="background:${r.backgroundColor};font-size:2.8rem;display:flex;align-items:center;justify-content:center;min-height:100px">${r.emoji}</div>
-        <div class="rcard-body" style="padding:.7rem .85rem .85rem">
-          <div style="font-weight:700;font-size:.92rem">${r.title}</div>
-          <div style="font-size:.72rem;color:var(--ink3)">por ${r.author_name}</div>
+        <div class="rcard-img" style="background:${r.backgroundColor}"><i class="fa-solid ${r.icon}"></i></div>
+        <div class="rcard-body">
+          <div class="rcard-title">${r.title}</div>
+          <div class="rcard-meta"><i class="fa-regular fa-user"></i> ${r.author_name}</div>
         </div>
       `;
       card.addEventListener('click', () => {
@@ -144,22 +144,24 @@ function setupChangePassword(username: string): void {
   const editBtn = getEl('btn-edit-profile');
   if (!editBtn) return;
 
-  editBtn.textContent = 'Alterar senha';
+  const openLabel = '<i class="fa-solid fa-key"></i> Alterar senha';
+  const closeLabel = '<i class="fa-solid fa-xmark"></i> Fechar';
+  editBtn.innerHTML = openLabel;
   editBtn.addEventListener('click', () => {
     const existing = document.getElementById('change-pw-form');
     if (existing) {
       existing.remove();
-      editBtn.textContent = 'Alterar senha';
+      editBtn.innerHTML = openLabel;
       return;
     }
 
-    editBtn.textContent = 'Fechar';
+    editBtn.innerHTML = closeLabel;
 
     const form = document.createElement('div');
     form.id = 'change-pw-form';
-    form.style.cssText = 'background:var(--bg2);border-radius:12px;padding:1rem;margin-top:1rem;max-width:380px';
+    form.className = 'change-pw-card';
     form.innerHTML = `
-      <div style="font-weight:700;margin-bottom:.8rem">Alterar senha</div>
+      <div class="change-pw-title"><i class="fa-solid fa-key"></i> Alterar senha</div>
       <div class="fl-group" style="margin-bottom:.5rem">
         <label class="fl-label">Senha atual</label>
         <input class="fl-input" id="pw-current" type="password" placeholder="Sua senha atual">

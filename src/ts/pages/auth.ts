@@ -4,7 +4,7 @@ import { showToast } from '../utils/toast.ts';
 
 // Se já logado, redireciona direto para a home
 if (isLoggedIn()) {
-  window.location.href = 'index.html';
+  window.location.href = 'dashboard.html';
 }
 
 function getEl<T extends HTMLElement>(id: string): T {
@@ -47,7 +47,7 @@ async function handleLogin(e: SubmitEvent): Promise<void> {
   try {
     const data = await authService.login(username, password);
     saveAuth(data, username);
-    window.location.href = 'index.html';
+    window.location.href = 'dashboard.html';
   } catch (err) {
     if (err instanceof ApiError && err.status === 401) {
       showToast('Usuário ou senha inválidos.', 'inf');
@@ -74,7 +74,7 @@ async function handleRegister(e: SubmitEvent): Promise<void> {
     // Auto-login após registro
     const loginData = await authService.login(username, password);
     saveAuth(loginData, username);
-    window.location.href = 'index.html';
+    window.location.href = 'dashboard.html';
   } catch (err) {
     if (err instanceof ApiError && err.status === 400) {
       const body = err.body as Record<string, string[]> | null;

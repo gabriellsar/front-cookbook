@@ -21,7 +21,11 @@ export function initRating(onRate?: OnRateCallback): void {
 function highlightStars(stars: NodeListOf<HTMLSpanElement>, upTo: number): void {
   stars.forEach((star, index) => {
     const filled = index < upTo;
-    star.textContent = filled ? '★' : '☆';
+    const icon = star.querySelector('i');
+    if (icon) {
+      icon.classList.toggle('fa-solid', filled);
+      icon.classList.toggle('fa-regular', !filled);
+    }
     star.classList.toggle('active', filled);
   });
 }

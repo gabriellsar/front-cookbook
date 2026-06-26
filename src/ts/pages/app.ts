@@ -22,33 +22,33 @@ function getEl<T extends HTMLElement>(id: string): T | null {
 function recipeCard(r: RecipeViewModel): string {
   const isFav = favoritesService.has(r.id);
   const badgeHtml = r.isFork
-    ? '<span class="rcard-badge fork-badge">⑂ Fork</span>'
-    : '<span class="rcard-badge orig-badge">Original</span>';
+    ? '<span class="rcard-fork-badge"><i class="fa-solid fa-code-branch"></i> Fork</span>'
+    : '<span class="rcard-badge">Original</span>';
 
   const tagsHtml = r.tags.length
     ? r.tags.map((t) => `<span class="rcard-tag">${t}</span>`).join('')
     : '';
 
   const forkInfo = r.isFork && r.forked_from_title
-    ? `<div class="rcard-fork-info" style="font-size:.72rem;color:var(--sl);margin-top:3px">⑂ de "${r.forked_from_title}"</div>`
+    ? `<div class="rcard-fork-info"><i class="fa-solid fa-code-branch"></i> de "${r.forked_from_title}"</div>`
     : '';
 
   return `
-    <div class="rcard" data-id="${r.id}" style="cursor:pointer">
-      <div class="rcard-img" style="background:${r.backgroundColor};font-size:2.8rem;display:flex;align-items:center;justify-content:center;position:relative;min-height:120px">
-        ${r.emoji}
+    <article class="rcard" data-id="${r.id}">
+      <div class="rcard-img" style="background:${r.backgroundColor}">
+        <i class="fa-solid ${r.icon}"></i>
         ${badgeHtml}
-        <button class="rcard-fav" data-id="${r.id}" style="position:absolute;top:8px;right:8px;background:none;border:none;font-size:1.1rem;cursor:pointer" aria-label="Favoritar">
-          ${isFav ? '♥' : '♡'}
+        <button class="rcard-fav" data-id="${r.id}" aria-label="Favoritar">
+          <i class="fa-${isFav ? 'solid' : 'regular'} fa-heart"></i>
         </button>
       </div>
-      <div class="rcard-body" style="padding:.7rem .85rem .85rem">
-        ${tagsHtml ? `<div class="rcard-tags" style="margin-bottom:4px">${tagsHtml}</div>` : ''}
-        <div class="rcard-title" style="font-weight:700;font-size:.92rem;margin-bottom:3px">${r.title}</div>
-        <div class="rcard-meta" style="font-size:.72rem;color:var(--ink3)">por ${r.author_name} · ${formatDate(r.created_at)}</div>
+      <div class="rcard-body">
+        ${tagsHtml ? `<div class="rcard-tags">${tagsHtml}</div>` : ''}
+        <div class="rcard-title">${r.title}</div>
+        <div class="rcard-meta"><i class="fa-regular fa-user"></i> ${r.author_name} · ${formatDate(r.created_at)}</div>
         ${forkInfo}
       </div>
-    </div>
+    </article>
   `;
 }
 
@@ -57,7 +57,7 @@ function renderGrid(recipes: RecipeViewModel[]): void {
   if (!grid) return;
 
   if (recipes.length === 0) {
-    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--ink3);padding:2rem">Nenhuma receita encontrada.</p>';
+    grid.innerHTML = '<p class="grid-loading">Nenhuma receita encontrada.</p>';
     return;
   }
 
@@ -79,7 +79,7 @@ function renderGrid(recipes: RecipeViewModel[]): void {
       e.stopPropagation();
       const id = Number(btn.dataset['id']);
       const added = favoritesService.toggle(id);
-      btn.textContent = added ? '♥' : '♡';
+      btn.innerHTML = `<i class="fa-${added ? 'solid' : 'regular'} fa-heart"></i>`;
     });
   });
 }
@@ -134,7 +134,7 @@ function renderFeatured(r: RecipeViewModel): void {
   feat.querySelector<HTMLElement>('.feat-h')!.innerHTML = r.title;
   feat.querySelector<HTMLElement>('.feat-desc')!.textContent =
     r.description ?? 'Sem descrição.';
-  feat.querySelector<HTMLElement>('.feat-r')!.textContent = r.emoji;
+  feat.querySelector<HTMLElement>('.feat-r')!.innerHTML = `<i class="fa-solid ${r.icon}"></i>`;
 
   const verBtn = feat.querySelector<HTMLAnchorElement>('.btn-feat');
   if (verBtn) verBtn.href = `receita.html?id=${r.id}`;
@@ -200,7 +200,7 @@ async function init(): Promise<void> {
     const grid = getEl('main-grid');
     if (grid) {
       grid.innerHTML =
-        '<p style="grid-column:1/-1;text-align:center;color:var(--ink3);padding:2rem">Erro ao carregar receitas. Verifique se o backend está rodando.</p>';
+        '<p class="grid-loading"><i class="fa-solid fa-triangle-exclamation"></i> Erro ao carregar receitas. Verifique se o backend está rodando.</p>';
     }
   }
 }

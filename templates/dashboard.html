@@ -12,11 +12,12 @@
   <h2 class="sr-only">Panela — plataforma de receitas colaborativas com suporte a fork</h2>
 
   <nav>
-    <a href="index.html" class="logo"><span class="logo-pip"></span>Panela</a>
-    <div class="nav-links">
-      <a href="index.html"       class="nl act">Descobrir</a>
-      <a href="form_receita.html" class="nl">+ Publicar</a>
-      <a href="perfil.html"       class="nl">Meu livro</a>
+    <a href="dashboard.html" class="logo"><span class="logo-pip"></span>Panela</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu"><i class="fa-solid fa-bars"></i></button>
+    <div class="nav-links" id="nav-links">
+      <a href="dashboard.html"    class="nl act"><i class="fa-solid fa-compass"></i> Descobrir</a>
+      <a href="form_receita.html" class="nl"><i class="fa-solid fa-plus"></i> Publicar</a>
+      <a href="perfil.html"       class="nl"><i class="fa-solid fa-book"></i> Meu livro</a>
     </div>
     <div class="nav-r" id="nav-auth-container">
       <a href="login.html" class="btn-o">Entrar</a>
@@ -31,43 +32,35 @@
       <h1 class="hero-h1">Cada receita,<br>uma <em>história</em><br>para contar.</h1>
       <p class="hero-desc">Descubra, compartilhe e evolua receitas com a comunidade. Dê fork, adapte e crie a sua versão.</p>
       <div class="hero-btns">
-        <a href="#grid-receitas" class="btn-feat">Explorar</a>
-        <a href="form_receita.html" class="btn-feat-fork">⑂ Publicar receita</a>
+        <a href="#grid-receitas" class="btn-feat"><i class="fa-solid fa-utensils"></i> Explorar</a>
+        <a href="form_receita.html" class="btn-feat-fork"><i class="fa-solid fa-plus"></i> Publicar receita</a>
       </div>
     </div>
     <div class="hero-r">
-      <div class="hero-r-top">🍄</div>
+      <div class="hero-r-top"><i class="fa-solid fa-bowl-food"></i></div>
       <div class="hero-r-bot">
-        <div style="background:#D4E8C8">🥗</div>
-        <div style="background:#E8C8C8">🍰</div>
+        <div style="background:#D4E8C8"><i class="fa-solid fa-carrot"></i></div>
+        <div style="background:#E8C8C8"><i class="fa-solid fa-cake-candles"></i></div>
       </div>
     </div>
   </div>
 
-  <!-- Barra de estatísticas -->
-  <div class="stat-strip">
-    <div><div class="stat-n">4.2k</div><div class="stat-l">receitas publicadas</div></div>
-    <div><div class="stat-n">1.1k</div><div class="stat-l">forks criados</div></div>
-    <div><div class="stat-n">12.8k</div><div class="stat-l">cozinheiros ativos</div></div>
-    <div style="margin-left:auto;font-size:.7rem;color:var(--ink3)">Ao vivo</div>
-  </div>
-
-  <!-- Busca e filtros -->
   <div class="search-bar">
     <form id="search-form" class="sb-wrap">
+      <span class="sb-ico"><i class="fa-solid fa-magnifying-glass"></i></span>
       <input type="text" id="search-input" placeholder="Buscar por receita, ingrediente, tag…">
       <button type="submit" class="sb-go">Buscar</button>
     </form>
     <div class="filter-row" id="filters-container">
       <span class="fl">Filtrar:</span>
       <button class="chip on"      data-filter="all">Todas</button>
-      <button class="chip tr-chip" data-filter="vegano">🌱 Vegano</button>
-      <button class="chip"         data-filter="sem-gluten">🌾 Sem glúten</button>
-      <button class="chip"         data-filter="rapido">⚡ Rápido</button>
-      <button class="chip"         data-filter="brasileiro">🇧🇷 Brasileiro</button>
-      <button class="chip"         data-filter="italiano">🍝 Italiano</button>
-      <button class="chip"         data-filter="sobremesa">🍰 Sobremesas</button>
-      <button class="chip tr-chip" data-filter="forks">⑂ Com forks</button>
+      <button class="chip tr-chip" data-filter="vegano"><i class="fa-solid fa-seedling"></i> Vegano</button>
+      <button class="chip"         data-filter="sem-gluten"><i class="fa-solid fa-wheat-awn"></i> Sem glúten</button>
+      <button class="chip"         data-filter="rapido"><i class="fa-solid fa-bolt"></i> Rápido</button>
+      <button class="chip"         data-filter="brasileiro"><i class="fa-solid fa-mug-hot"></i> Brasileiro</button>
+      <button class="chip"         data-filter="italiano"><i class="fa-solid fa-pizza-slice"></i> Italiano</button>
+      <button class="chip"         data-filter="sobremesa"><i class="fa-solid fa-cake-candles"></i> Sobremesas</button>
+      <button class="chip tr-chip" data-filter="forks"><i class="fa-solid fa-code-branch"></i> Com forks</button>
     </div>
   </div>
 
@@ -80,26 +73,26 @@
       <div class="feat-stats">
         <div><div class="feat-stat-v">45 min</div><div class="feat-stat-k">PREPARO</div></div>
         <div><div class="feat-stat-v">4</div><div class="feat-stat-k">PORÇÕES</div></div>
-        <div><div class="feat-stat-v">★ 4.9</div><div class="feat-stat-k">AVALIAÇÃO</div></div>
+        <div><div class="feat-stat-v"><i class="fa-solid fa-star"></i> 4.9</div><div class="feat-stat-k">AVALIAÇÃO</div></div>
         <div><div class="feat-stat-v">7</div><div class="feat-stat-k">FORKS</div></div>
       </div>
       <div class="feat-actions">
-        <a href="receita.html" class="btn-feat">Ver receita →</a>
-        <button class="btn-feat-fork" data-recipe="Risoto de Funghi com Trufa Negra">⑂ Dar fork</button>
+        <a href="receita.html" class="btn-feat">Ver receita <i class="fa-solid fa-arrow-right"></i></a>
+        <button class="btn-feat-fork" data-recipe="Risoto de Funghi com Trufa Negra"><i class="fa-solid fa-code-branch"></i> Dar fork</button>
       </div>
     </div>
-    <div class="feat-r">🍄</div>
+    <div class="feat-r"><i class="fa-solid fa-bowl-food"></i></div>
   </div>
 
   <!-- Grade de receitas -->
   <section class="grid-section" id="grid-receitas">
     <div class="sec-hd">
       <h2 class="sec-title">Descobertas recentes</h2>
-      <span class="sec-link">Ver todas →</span>
+      <span class="sec-link">Ver todas <i class="fa-solid fa-arrow-right"></i></span>
     </div>
     <div class="rg" id="main-grid">
-      <p style="grid-column:1/-1;text-align:center;color:var(--ink3);padding:2rem">
-        A carregar receitas da comunidade…
+      <p class="grid-loading">
+        <i class="fa-solid fa-spinner fa-spin"></i> A carregar receitas da comunidade…
       </p>
     </div>
   </section>
@@ -107,26 +100,26 @@
   <!-- Modal de fork -->
   <div id="fork-modal-wrap" class="fork-modal-wrap">
     <div class="fork-modal">
-      <button class="fm-close" id="fork-modal-close">×</button>
-      <div class="fm-icon">⑂</div>
+      <button class="fm-close" id="fork-modal-close" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
+      <div class="fm-icon"><i class="fa-solid fa-code-branch"></i></div>
       <div class="fm-title">Dar fork na receita</div>
       <div class="fm-sub">Crie sua própria versão adaptada. Sua receita ficará vinculada à original, formando uma árvore de derivações.</div>
       <div class="fm-origin">
-        <span style="font-size:1rem">🍄</span>
+        <span class="fm-origin-ico"><i class="fa-solid fa-bowl-food"></i></span>
         <div>
-          <div style="font-size:.63rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(42,74,122,.6);margin-bottom:1px">Receita original</div>
-          <div id="fork-origin-name" style="font-weight:600"></div>
+          <div class="fm-origin-k">Receita original</div>
+          <div id="fork-origin-name" class="fm-origin-v"></div>
         </div>
       </div>
       <label class="fm-label" for="fork-note">O que você vai adaptar? *</label>
       <textarea id="fork-note" class="fm-input fm-textarea" placeholder="Ex: Substituí a trufa por gorgonzola e adicionei nozes…"></textarea>
       <div class="fm-note">
-        <span>ℹ</span>
+        <i class="fa-solid fa-circle-info"></i>
         <span>Ao confirmar, uma cópia editável da receita será criada no seu perfil, já vinculada à original.</span>
       </div>
       <div class="fm-actions">
         <button class="btn-cancel" id="fork-modal-cancel">Cancelar</button>
-        <button class="btn-fork-confirm" id="fork-modal-confirm">⑂ Criar fork e editar</button>
+        <button class="btn-fork-confirm" id="fork-modal-confirm"><i class="fa-solid fa-code-branch"></i> Criar fork e editar</button>
       </div>
     </div>
   </div>

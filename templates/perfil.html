@@ -11,11 +11,12 @@
 <body>
 
   <nav>
-    <a href="index.html" class="logo"><span class="logo-pip"></span>Panela</a>
-    <div class="nav-links">
-      <a href="index.html"        class="nl">Descobrir</a>
-      <a href="form_receita.html" class="nl">+ Publicar</a>
-      <a href="perfil.html"       class="nl act">Meu livro</a>
+    <a href="dashboard.html" class="logo"><span class="logo-pip"></span>Panela</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu"><i class="fa-solid fa-bars"></i></button>
+    <div class="nav-links" id="nav-links">
+      <a href="dashboard.html"    class="nl"><i class="fa-solid fa-compass"></i> Descobrir</a>
+      <a href="form_receita.html" class="nl"><i class="fa-solid fa-plus"></i> Publicar</a>
+      <a href="perfil.html"       class="nl act"><i class="fa-solid fa-book"></i> Meu livro</a>
     </div>
     <div class="nav-r" id="nav-auth-container">
       <a href="login.html" class="btn-o">Entrar</a>
@@ -27,21 +28,21 @@
     <!-- Cabeçalho do perfil -->
     <div class="prof-hd" id="profile-header">
       <div class="prof-av" id="profile-avatar"></div>
-      <div style="flex:1;position:relative;z-index:1">
+      <div class="prof-hd-info">
         <div class="prof-name" id="profile-name"></div>
         <div class="prof-bio"  id="profile-bio"></div>
         <div class="prof-stats" id="profile-stats"></div>
       </div>
-      <button class="btn-o" id="btn-edit-profile" style="align-self:flex-start;position:relative;z-index:1">
-        Editar perfil
+      <button class="btn-o prof-edit-btn" id="btn-edit-profile">
+        <i class="fa-solid fa-key"></i> Alterar senha
       </button>
     </div>
 
     <!-- Abas -->
     <div class="prof-tabs" role="tablist">
-      <button class="ptab on" role="tab" aria-selected="true"  data-tab="t-mine">Minhas receitas</button>
-      <button class="ptab"    role="tab" aria-selected="false" data-tab="t-forks">Meus forks</button>
-      <button class="ptab"    role="tab" aria-selected="false" data-tab="t-saved">Livro de receitas</button>
+      <button class="ptab on" role="tab" aria-selected="true"  data-tab="t-mine"><i class="fa-solid fa-utensils"></i> Minhas receitas</button>
+      <button class="ptab"    role="tab" aria-selected="false" data-tab="t-forks"><i class="fa-solid fa-code-branch"></i> Meus forks</button>
+      <button class="ptab"    role="tab" aria-selected="false" data-tab="t-saved"><i class="fa-solid fa-bookmark"></i> Livro de receitas</button>
     </div>
 
     <!-- Painel: Minhas receitas -->
@@ -57,10 +58,10 @@
     <!-- Painel: Livro de receitas -->
     <div id="t-saved" role="tabpanel" style="display:none">
       <div class="empty-state" id="saved-empty">
-        <div class="empty-ico">📖</div>
+        <div class="empty-ico"><i class="fa-solid fa-book-open"></i></div>
         <div class="empty-h">Seu livro está vazio</div>
         <div class="empty-tx">Favorite receitas para acessá-las aqui.</div>
-        <a href="index.html" class="btn-p">Descobrir receitas</a>
+        <a href="dashboard.html" class="btn-p">Descobrir receitas</a>
       </div>
       <div class="rg" id="saved-recipes-grid" style="display:none"></div>
     </div>

@@ -10,11 +10,12 @@
 <body>
 
   <nav>
-    <a href="index.html" class="logo"><span class="logo-pip"></span>Panela</a>
-    <div class="nav-links">
-      <a href="index.html"        class="nl">Descobrir</a>
-      <a href="form_receita.html" class="nl act">+ Publicar</a>
-      <a href="perfil.html"       class="nl">Meu livro</a>
+    <a href="dashboard.html" class="logo"><span class="logo-pip"></span>Panela</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu"><i class="fa-solid fa-bars"></i></button>
+    <div class="nav-links" id="nav-links">
+      <a href="dashboard.html"    class="nl"><i class="fa-solid fa-compass"></i> Descobrir</a>
+      <a href="form_receita.html" class="nl act"><i class="fa-solid fa-plus"></i> Publicar</a>
+      <a href="perfil.html"       class="nl"><i class="fa-solid fa-book"></i> Meu livro</a>
     </div>
     <div class="nav-r" id="nav-auth-container">
       <a href="login.html" class="btn-o">Entrar</a>
@@ -28,9 +29,9 @@
 
     <!-- Indicador de fork (mostrado quando derivando de outra receita) -->
     <div class="fork-origin-banner" id="fork-origin-banner" style="display:none">
-      <span style="font-size:1.2rem">⑂</span>
+      <i class="fa-solid fa-code-branch"></i>
       <div>
-        <span style="font-size:.63rem;letter-spacing:.06em;text-transform:uppercase;opacity:.7">Fork de</span>
+        <span class="fork-origin-k">Fork de</span>
         <strong id="fork-origin-label"></strong>
       </div>
     </div>
@@ -39,7 +40,7 @@
 
       <!-- Foto da receita -->
       <div class="upload-zone" id="upload-zone">
-        <div class="upload-ico">📷</div>
+        <div class="upload-ico"><i class="fa-solid fa-camera"></i></div>
         <p class="upload-tx">
           <span class="upload-link">Clique para enviar foto</span>
           &nbsp;ou arraste aqui · JPG, PNG, WebP · máx. 10 MB
@@ -72,29 +73,29 @@
       <hr class="sec-divider">
 
       <!-- Ingredientes -->
-      <div class="sec-sub-h">🧂 Ingredientes</div>
-      <div style="display:grid;grid-template-columns:1fr 2fr;gap:7px;padding-right:32px;margin-bottom:5px">
-        <span style="font-size:.63rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);font-weight:600">Quantidade</span>
-        <span style="font-size:.63rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);font-weight:600">Ingrediente</span>
+      <div class="sec-sub-h"><i class="fa-solid fa-mortar-pestle"></i> Ingredientes</div>
+      <div class="ing-form-head">
+        <span>Quantidade</span>
+        <span>Ingrediente</span>
       </div>
       <div id="ingredients-form">
         <div class="ing-form-row">
           <input class="fl-input" type="text" placeholder="Ex: 300g">
           <input class="fl-input" type="text" placeholder="Ex: farinha de trigo">
-          <button type="button" class="btn-rm" aria-label="Remover ingrediente">×</button>
+          <button type="button" class="btn-rm" aria-label="Remover ingrediente"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="ing-form-row">
           <input class="fl-input" type="text" placeholder="Ex: 3">
           <input class="fl-input" type="text" placeholder="Ex: ovos">
-          <button type="button" class="btn-rm" aria-label="Remover ingrediente">×</button>
+          <button type="button" class="btn-rm" aria-label="Remover ingrediente"><i class="fa-solid fa-xmark"></i></button>
         </div>
       </div>
-      <button type="button" class="btn-add" id="btn-add-ingredient">+ ingrediente</button>
+      <button type="button" class="btn-add" id="btn-add-ingredient"><i class="fa-solid fa-plus"></i> ingrediente</button>
 
       <hr class="sec-divider">
 
       <!-- Modo de preparo -->
-      <div class="sec-sub-h">📋 Modo de preparo</div>
+      <div class="sec-sub-h"><i class="fa-solid fa-list-ol"></i> Modo de preparo</div>
       <div id="steps-form">
         <div class="step-form-row">
           <div class="step-n-form">1</div>
@@ -105,23 +106,23 @@
           <textarea class="fl-input fl-ta" style="min-height:70px" placeholder="Continue o preparo…"></textarea>
         </div>
       </div>
-      <button type="button" class="btn-add" id="btn-add-step">+ etapa</button>
+      <button type="button" class="btn-add" id="btn-add-step"><i class="fa-solid fa-plus"></i> etapa</button>
 
       <hr class="sec-divider">
 
       <!-- Tags -->
-      <div class="sec-sub-h">🏷️ Tags</div>
+      <div class="sec-sub-h"><i class="fa-solid fa-tags"></i> Tags</div>
       <div class="tag-grid" id="tag-grid">
-        <button type="button" class="tag-opt" data-tag="vegano">🌱 Vegano</button>
-        <button type="button" class="tag-opt" data-tag="vegetariano">🥛 Vegetariano</button>
-        <button type="button" class="tag-opt" data-tag="sem-gluten">🌾 Sem glúten</button>
-        <button type="button" class="tag-opt" data-tag="rapido">⚡ Rápido</button>
-        <button type="button" class="tag-opt" data-tag="cafe-da-manha">🍳 Café da manhã</button>
-        <button type="button" class="tag-opt" data-tag="jantar">🌙 Jantar</button>
-        <button type="button" class="tag-opt" data-tag="sobremesa">🍰 Sobremesa</button>
-        <button type="button" class="tag-opt" data-tag="brasileiro">🇧🇷 Brasileiro</button>
-        <button type="button" class="tag-opt" data-tag="italiano">🇮🇹 Italiano</button>
-        <button type="button" class="tag-opt" data-tag="apimentado">🌶️ Apimentado</button>
+        <button type="button" class="tag-opt" data-tag="vegano"><i class="fa-solid fa-seedling"></i> Vegano</button>
+        <button type="button" class="tag-opt" data-tag="vegetariano"><i class="fa-solid fa-leaf"></i> Vegetariano</button>
+        <button type="button" class="tag-opt" data-tag="sem-gluten"><i class="fa-solid fa-wheat-awn"></i> Sem glúten</button>
+        <button type="button" class="tag-opt" data-tag="rapido"><i class="fa-solid fa-bolt"></i> Rápido</button>
+        <button type="button" class="tag-opt" data-tag="cafe-da-manha"><i class="fa-solid fa-egg"></i> Café da manhã</button>
+        <button type="button" class="tag-opt" data-tag="jantar"><i class="fa-solid fa-moon"></i> Jantar</button>
+        <button type="button" class="tag-opt" data-tag="sobremesa"><i class="fa-solid fa-cake-candles"></i> Sobremesa</button>
+        <button type="button" class="tag-opt" data-tag="brasileiro"><i class="fa-solid fa-mug-hot"></i> Brasileiro</button>
+        <button type="button" class="tag-opt" data-tag="italiano"><i class="fa-solid fa-pizza-slice"></i> Italiano</button>
+        <button type="button" class="tag-opt" data-tag="apimentado"><i class="fa-solid fa-pepper-hot"></i> Apimentado</button>
       </div>
 
       <hr class="sec-divider">
@@ -131,7 +132,7 @@
         <input class="fl-input" id="recipe-video" type="url" placeholder="Cole link do YouTube…">
       </div>
 
-      <button type="submit" class="btn-submit">Publicar receita</button>
+      <button type="submit" class="btn-submit"><i class="fa-solid fa-paper-plane"></i> Publicar receita</button>
     </form>
   </main>
 

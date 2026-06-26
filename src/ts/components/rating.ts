@@ -2,8 +2,11 @@ type OnRateCallback = (value: number) => void;
 
 let currentRating = 0;
 
-export function initRating(onRate?: OnRateCallback): void {
+export function initRating(onRate?: OnRateCallback, initialValue = 0): void {
   const stars = document.querySelectorAll<HTMLSpanElement>('#stars span');
+
+  currentRating = initialValue;
+  highlightStars(stars, currentRating);
 
   stars.forEach((star, index) => {
     const value = index + 1;

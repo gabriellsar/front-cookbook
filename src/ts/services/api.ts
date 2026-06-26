@@ -81,10 +81,27 @@ export const recipeService = {
 
   getById: (id: number): Promise<ApiRecipe> => request<ApiRecipe>(`/recipes/${id}/`),
 
-  create: (data: { title: string; description?: string }): Promise<ApiRecipe> =>
+  create: (data: {
+    title: string;
+    description?: string;
+    prep_time?: number | null;
+    servings?: number | null;
+    video_url?: string | null;
+    tags?: string[];
+  }): Promise<ApiRecipe> =>
     request<ApiRecipe>('/recipes/', { method: 'POST', body: JSON.stringify(data) }),
 
-  update: (id: number, data: Partial<{ title: string; description: string }>): Promise<ApiRecipe> =>
+  update: (
+    id: number,
+    data: Partial<{
+      title: string;
+      description: string;
+      prep_time: number | null;
+      servings: number | null;
+      video_url: string | null;
+      tags: string[];
+    }>,
+  ): Promise<ApiRecipe> =>
     request<ApiRecipe>(`/recipes/${id}/`, { method: 'PATCH', body: JSON.stringify(data) }),
 
   delete: (id: number): Promise<void> =>
@@ -94,6 +111,12 @@ export const recipeService = {
     request<ApiRecipe>(`/recipes/${id}/fork/`, {
       method: 'POST',
       body: JSON.stringify({ affectionate_note: affectionateNote }),
+    }),
+
+  rate: (id: number, value: number): Promise<ApiRecipe> =>
+    request<ApiRecipe>(`/recipes/${id}/rate/`, {
+      method: 'POST',
+      body: JSON.stringify({ value }),
     }),
 };
 

@@ -241,6 +241,12 @@
   cursor: pointer;
 }
 
+/* Segredo de família herdado num fork: somente leitura */
+.lock-label.lock-readonly {
+  cursor: not-allowed;
+  opacity: .65;
+}
+
 .fork-origin-k {
   font-size: .63rem;
   letter-spacing: .06em;

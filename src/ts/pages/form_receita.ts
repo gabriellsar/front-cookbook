@@ -15,6 +15,29 @@ function getEl<T extends HTMLElement>(id: string): T | null {
   return document.getElementById(id) as T | null;
 }
 
+// Indica se o usuário pode trancar/destrancar itens nesta receita.
+// Espelha a regra do backend (`_is_item_protected`): só o autor de uma
+// receita ORIGINAL (não-fork) gerencia os "segredos de família".
+// Em forks, os itens trancados são herdados e ficam somente-leitura.
+let canLock = true;
+
+// Renderiza o controle de cadeado de um item (ingrediente ou passo):
+// - editável (checkbox) quando o usuário pode trancar;
+// - indicador somente-leitura quando o item é um segredo herdado de um fork.
+function lockControl(isLocked: boolean): string {
+  if (canLock) {
+    return `<label class="lock-label" title="Trancar como segredo de família (não editável por quem fizer fork)">
+         <input type="checkbox" class="lock-chk" ${isLocked ? 'checked' : ''}> <i class="fa-solid fa-lock"></i>
+       </label>`;
+  }
+  if (isLocked) {
+    return `<span class="lock-label lock-readonly" title="Segredo de família trancado — não pode ser alterado neste fork">
+         <i class="fa-solid fa-lock"></i>
+       </span>`;
+  }
+  return '';
+}
+
 // ── Linhas de ingredientes ─────────────────────────────────────────────────
 
 function newIngredientRow(qty = '', name = '', apiId?: number, isLocked = false): HTMLElement {
@@ -23,19 +46,14 @@ function newIngredientRow(qty = '', name = '', apiId?: number, isLocked = false)
   if (apiId) row.dataset['apiId'] = String(apiId);
   if (isLocked) row.dataset['locked'] = 'true';
 
-  const user = getCurrentUser();
-  const lockCheckbox =
-    user?.role === 'GUARDIAN'
-      ? `<label class="lock-label" title="Trancar como segredo de família">
-           <input type="checkbox" class="lock-chk" ${isLocked ? 'checked' : ''}> <i class="fa-solid fa-lock"></i>
-         </label>`
-      : '';
+  const readonly = !canLock && isLocked; // segredo herdado num fork → bloqueado
+  const dis = readonly ? 'disabled' : '';
 
   row.innerHTML = `
-    <input class="fl-input ing-qty" type="text" placeholder="Ex: 300g" value="${qty}">
-    <input class="fl-input ing-name" type="text" placeholder="Ex: farinha de trigo" value="${name}">
-    ${lockCheckbox}
-    <button type="button" class="btn-rm" aria-label="Remover ingrediente"><i class="fa-solid fa-xmark"></i></button>
+    <input class="fl-input ing-qty" type="text" placeholder="Ex: 300g" value="${qty}" ${dis}>
+    <input class="fl-input ing-name" type="text" placeholder="Ex: farinha de trigo" value="${name}" ${dis}>
+    ${lockControl(isLocked)}
+    <button type="button" class="btn-rm" aria-label="Remover ingrediente" ${dis}><i class="fa-solid fa-xmark"></i></button>
   `;
 
   row.querySelector('.btn-rm')?.addEventListener('click', () => {
@@ -64,21 +82,16 @@ function newStepRow(instruction = '', apiId?: number, isLocked = false): HTMLEle
   if (apiId) row.dataset['apiId'] = String(apiId);
   if (isLocked) row.dataset['locked'] = 'true';
 
-  const user = getCurrentUser();
-  const lockCheckbox =
-    user?.role === 'GUARDIAN'
-      ? `<label class="lock-label" title="Trancar como segredo de família">
-           <input type="checkbox" class="lock-chk" ${isLocked ? 'checked' : ''}> <i class="fa-solid fa-lock"></i>
-         </label>`
-      : '';
+  const readonly = !canLock && isLocked; // segredo herdado num fork → bloqueado
+  const dis = readonly ? 'disabled' : '';
 
   row.innerHTML = `
     <div class="step-n-form">?</div>
     <div style="flex:1;display:flex;flex-direction:column;gap:4px">
-      <textarea class="fl-input fl-ta step-inst" style="min-height:70px" placeholder="Descreva este passo…">${instruction}</textarea>
-      ${lockCheckbox}
+      <textarea class="fl-input fl-ta step-inst" style="min-height:70px" placeholder="Descreva este passo…" ${dis}>${instruction}</textarea>
+      ${lockControl(isLocked)}
     </div>
-    <button type="button" class="btn-rm" aria-label="Remover passo"><i class="fa-solid fa-xmark"></i></button>
+    <button type="button" class="btn-rm" aria-label="Remover passo" ${dis}><i class="fa-solid fa-xmark"></i></button>
   `;
 
   row.querySelector('.btn-rm')?.addEventListener('click', () => {
@@ -193,6 +206,13 @@ function populateForm(recipe: ApiRecipe): void {
   const descInput = getEl<HTMLTextAreaElement>('recipe-desc');
   if (descInput) descInput.value = recipe.description ?? '';
 
+  const timeInput = getEl<HTMLInputElement>('recipe-time');
+  if (timeInput) timeInput.value = recipe.prep_time != null ? String(recipe.prep_time) : '';
+  const servInput = getEl<HTMLInputElement>('recipe-servings');
+  if (servInput) servInput.value = recipe.servings != null ? String(recipe.servings) : '';
+  const videoInput = getEl<HTMLInputElement>('recipe-video');
+  if (videoInput) videoInput.value = recipe.video_url ?? '';
+
   const h1 = document.querySelector<HTMLElement>('.create-h');
   if (h1) h1.textContent = 'Editar receita';
 
@@ -237,9 +257,8 @@ function populateForm(recipe: ApiRecipe): void {
     updateStepNumbers();
   }
 
-  // Tags salvas localmente
-  const meta = recipeMetaService.getMeta(recipe.id);
-  setupTags(meta.tags);
+  // Tags vêm do backend (consistentes entre usuários/dispositivos)
+  setupTags(recipe.tags ?? []);
 }
 
 // ── Submissão ──────────────────────────────────────────────────────────────
@@ -249,6 +268,14 @@ async function handleSubmit(e: SubmitEvent, originalRecipe?: ApiRecipe): Promise
 
   const title = (getEl<HTMLInputElement>('recipe-name')?.value ?? '').trim();
   const description = (getEl<HTMLTextAreaElement>('recipe-desc')?.value ?? '').trim();
+
+  const prepRaw = (getEl<HTMLInputElement>('recipe-time')?.value ?? '').trim();
+  const servRaw = (getEl<HTMLInputElement>('recipe-servings')?.value ?? '').trim();
+  const videoRaw = (getEl<HTMLInputElement>('recipe-video')?.value ?? '').trim();
+
+  const prep_time = prepRaw ? Number(prepRaw) : null;
+  const servings = servRaw ? Number(servRaw) : null;
+  const video_url = videoRaw || null;
 
   if (!title) {
     showToast('O nome da receita é obrigatório.', 'inf');
@@ -274,16 +301,21 @@ async function handleSubmit(e: SubmitEvent, originalRecipe?: ApiRecipe): Promise
 
   try {
     if (isEditMode && editId !== null && originalRecipe) {
-      // PATCH da receita
-      const updated = await recipeService.update(editId, { title, description });
+      // Espelha a regra do backend: um item trancado só é "protegido"
+      // (intocável) quando a receita é um fork. No original, o autor edita à vontade.
+      const isFork = !!originalRecipe.forked_from;
+      const isProtected = (locked: boolean): boolean => locked && isFork;
+
+      // PATCH da receita (inclui tags)
+      const updated = await recipeService.update(editId, { title, description, prep_time, servings, video_url, tags });
 
       // Ingredientes existentes: PATCH; novos: POST
       const existingIngIds = new Set(originalRecipe.ingredients.map((i) => i.id));
       const formIngIds = new Set(ingredients.filter((i) => i.apiId).map((i) => i.apiId!));
 
-      // Deletar removidos
+      // Deletar removidos (exceto segredos herdados protegidos)
       for (const ing of originalRecipe.ingredients) {
-        if (!formIngIds.has(ing.id) && !ing.is_locked) {
+        if (!formIngIds.has(ing.id) && !isProtected(ing.is_locked)) {
           await ingredientService.delete(ing.id);
         }
       }
@@ -291,7 +323,7 @@ async function handleSubmit(e: SubmitEvent, originalRecipe?: ApiRecipe): Promise
       for (const ing of ingredients) {
         if (ing.apiId && existingIngIds.has(ing.apiId)) {
           const orig = originalRecipe.ingredients.find((i) => i.id === ing.apiId);
-          if (orig && !orig.is_locked) {
+          if (orig && !isProtected(orig.is_locked)) {
             await ingredientService.update(ing.apiId, { name: ing.name, quantity: ing.qty, is_locked: ing.isLocked });
           }
         } else if (!ing.apiId) {
@@ -304,7 +336,7 @@ async function handleSubmit(e: SubmitEvent, originalRecipe?: ApiRecipe): Promise
       const formStepIds = new Set(steps.filter((s) => s.apiId).map((s) => s.apiId!));
 
       for (const step of originalRecipe.steps) {
-        if (!formStepIds.has(step.id) && !step.is_locked) {
+        if (!formStepIds.has(step.id) && !isProtected(step.is_locked)) {
           await stepService.delete(step.id);
         }
       }
@@ -313,7 +345,7 @@ async function handleSubmit(e: SubmitEvent, originalRecipe?: ApiRecipe): Promise
         const stepNum = i + 1;
         if (step.apiId && existingStepIds.has(step.apiId)) {
           const orig = originalRecipe.steps.find((s) => s.id === step.apiId);
-          if (orig && !orig.is_locked) {
+          if (orig && !isProtected(orig.is_locked)) {
             await stepService.update(step.apiId, { step_number: stepNum, instruction: step.instruction, is_locked: step.isLocked });
           }
         } else if (!step.apiId) {
@@ -321,16 +353,13 @@ async function handleSubmit(e: SubmitEvent, originalRecipe?: ApiRecipe): Promise
         }
       }
 
-      // Salva tags localmente
-      recipeMetaService.setMeta(updated.id, { tags });
-
       showToast('Receita atualizada!', 'ok');
       setTimeout(() => {
         window.location.href = `receita.html?id=${updated.id}`;
       }, 1000);
     } else {
-      // CREATE
-      const newRecipe = await recipeService.create({ title, description });
+      // CREATE (tags vão para o backend)
+      const newRecipe = await recipeService.create({ title, description, prep_time, servings, video_url, tags });
 
       for (const ing of ingredients) {
         if (ing.name && ing.qty) {
@@ -345,9 +374,8 @@ async function handleSubmit(e: SubmitEvent, originalRecipe?: ApiRecipe): Promise
         }
       }
 
-      // Metadados visuais
+      // Metadados puramente visuais (ícone e cor de capa) ficam no localStorage
       recipeMetaService.setMeta(newRecipe.id, {
-        tags,
         icon: recipeMetaService.randomIcon(),
         backgroundColor: recipeMetaService.randomBg(),
       });
@@ -380,6 +408,9 @@ async function init(): Promise<void> {
   if (isEditMode && editId !== null) {
     try {
       originalRecipe = await recipeService.getById(editId);
+      // Só o autor de uma receita original (não-fork) gerencia os segredos.
+      const user = getCurrentUser();
+      canLock = !!user && originalRecipe.author === user.userId && !originalRecipe.forked_from;
       populateForm(originalRecipe);
     } catch {
       showToast('Erro ao carregar receita para edição.', 'inf');

@@ -22,6 +22,14 @@ export interface ApiRecipe {
   forked_from: number | null;
   forked_from_title: string | null;
   affectionate_note: string | null;
+  prep_time: number | null;
+  servings: number | null;
+  video_url: string | null;
+  tags: string[];
+  average_rating: number;
+  rating_count: number;
+  forks_count: number;
+  my_rating: number | null;
   ingredients: ApiIngredient[];
   steps: ApiStep[];
 }
@@ -46,17 +54,16 @@ export interface AuthState {
 }
 
 
+// Metadados puramente visuais guardados no localStorage (ícone e cor de capa).
+// Tags agora vêm do backend (campo ApiRecipe.tags).
 export interface RecipeUIMetadata {
   icon: string;
   backgroundColor: string;
-  tags: string[];
-  localRating: number;
 }
 
 export interface RecipeViewModel extends ApiRecipe {
   icon: string;
   backgroundColor: string;
-  tags: string[];
   isFork: boolean;
 }
 

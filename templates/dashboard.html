@@ -45,25 +45,6 @@
     </div>
   </div>
 
-  <div class="search-bar">
-    <form id="search-form" class="sb-wrap">
-      <span class="sb-ico"><i class="fa-solid fa-magnifying-glass"></i></span>
-      <input type="text" id="search-input" placeholder="Buscar por receita, ingrediente, tag…">
-      <button type="submit" class="sb-go">Buscar</button>
-    </form>
-    <div class="filter-row" id="filters-container">
-      <span class="fl">Filtrar:</span>
-      <button class="chip on"      data-filter="all">Todas</button>
-      <button class="chip tr-chip" data-filter="vegano"><i class="fa-solid fa-seedling"></i> Vegano</button>
-      <button class="chip"         data-filter="sem-gluten"><i class="fa-solid fa-wheat-awn"></i> Sem glúten</button>
-      <button class="chip"         data-filter="rapido"><i class="fa-solid fa-bolt"></i> Rápido</button>
-      <button class="chip"         data-filter="brasileiro"><i class="fa-solid fa-mug-hot"></i> Brasileiro</button>
-      <button class="chip"         data-filter="italiano"><i class="fa-solid fa-pizza-slice"></i> Italiano</button>
-      <button class="chip"         data-filter="sobremesa"><i class="fa-solid fa-cake-candles"></i> Sobremesas</button>
-      <button class="chip tr-chip" data-filter="forks"><i class="fa-solid fa-code-branch"></i> Com forks</button>
-    </div>
-  </div>
-
   <!-- Receita em destaque -->
   <div class="feat" id="featured-recipe">
     <div class="feat-l">
@@ -84,11 +65,29 @@
     <div class="feat-r"><i class="fa-solid fa-bowl-food"></i></div>
   </div>
 
+  <div class="search-bar">
+    <form id="search-form" class="sb-wrap">
+      <span class="sb-ico"><i class="fa-solid fa-magnifying-glass"></i></span>
+      <input type="text" id="search-input" placeholder="Buscar por receita, ingrediente, tag…">
+      <button type="submit" class="sb-go">Buscar</button>
+    </form>
+    <div class="filter-row" id="filters-container">
+      <span class="fl">Filtrar:</span>
+      <button class="chip on"      data-filter="all">Todas</button>
+      <button class="chip tr-chip" data-filter="vegano"><i class="fa-solid fa-seedling"></i> Vegano</button>
+      <button class="chip"         data-filter="sem-gluten"><i class="fa-solid fa-wheat-awn"></i> Sem glúten</button>
+      <button class="chip"         data-filter="rapido"><i class="fa-solid fa-bolt"></i> Rápido</button>
+      <button class="chip"         data-filter="brasileiro"><i class="fa-solid fa-mug-hot"></i> Brasileiro</button>
+      <button class="chip"         data-filter="italiano"><i class="fa-solid fa-pizza-slice"></i> Italiano</button>
+      <button class="chip"         data-filter="sobremesa"><i class="fa-solid fa-cake-candles"></i> Sobremesas</button>
+      <button class="chip tr-chip" data-filter="forks"><i class="fa-solid fa-code-branch"></i> Com forks</button>
+    </div>
+  </div>
+
   <!-- Grade de receitas -->
   <section class="grid-section" id="grid-receitas">
     <div class="sec-hd">
       <h2 class="sec-title">Descobertas recentes</h2>
-      <span class="sec-link">Ver todas <i class="fa-solid fa-arrow-right"></i></span>
     </div>
     <div class="rg" id="main-grid">
       <p class="grid-loading">

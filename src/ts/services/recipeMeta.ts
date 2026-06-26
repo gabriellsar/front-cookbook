@@ -29,8 +29,6 @@ function defaultMeta(id: number): RecipeUIMetadata {
   return {
     icon: ICON_PALETTE[idx],
     backgroundColor: BG_PALETTE[idx % BG_PALETTE.length],
-    tags: [],
-    localRating: 0,
   };
 }
 
@@ -41,7 +39,7 @@ export const recipeMetaService = {
     if (!meta) return defaultMeta(id);
     // Guarda de segurança: metadados antigos (emoji) caem para o ícone padrão
     if (!meta.icon || !meta.icon.startsWith('fa-')) {
-      return { ...defaultMeta(id), tags: meta.tags ?? [], localRating: meta.localRating ?? 0 };
+      return defaultMeta(id);
     }
     return meta;
   },
@@ -59,7 +57,7 @@ export const recipeMetaService = {
       ...recipe,
       icon: meta.icon,
       backgroundColor: meta.backgroundColor,
-      tags: meta.tags,
+      tags: recipe.tags ?? [],
       isFork: recipe.forked_from !== null,
     };
   },

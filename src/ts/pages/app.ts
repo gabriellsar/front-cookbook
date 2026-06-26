@@ -127,6 +127,38 @@ function setupFilters(): void {
 
 // ── Receita em destaque ────────────────────────────────────────────────────
 
+// Escolhe a receita em destaque: maior média de avaliação, com desempate por
+// número de avaliações e, por fim, pela mais recente.
+function pickFeatured(recipes: RecipeViewModel[]): RecipeViewModel | null {
+  if (recipes.length === 0) return null;
+  return [...recipes].sort(
+    (a, b) =>
+      b.average_rating - a.average_rating ||
+      b.rating_count - a.rating_count ||
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+  )[0];
+}
+
+function statHtml(value: string, key: string): string {
+  return `<div><div class="feat-stat-v">${value}</div><div class="feat-stat-k">${key}</div></div>`;
+}
+
+function renderFeaturedEmpty(): void {
+  const feat = getEl('featured-recipe');
+  if (!feat) return;
+  feat.innerHTML = `
+    <div class="feat-l">
+      <div class="feat-tag">Receita em destaque</div>
+      <h2 class="feat-h">Não temos nenhum<br>destaque <em>no momento</em></h2>
+      <p class="feat-desc">Ainda não há receitas na comunidade. Que tal publicar a primeira e abrir a cozinha?</p>
+      <div class="feat-actions">
+        <a href="form_receita.html" class="btn-feat"><i class="fa-solid fa-plus"></i> Publicar receita</a>
+      </div>
+    </div>
+    <div class="feat-r"><i class="fa-solid fa-bowl-food"></i></div>
+  `;
+}
+
 function renderFeatured(r: RecipeViewModel): void {
   const feat = getEl('featured-recipe');
   if (!feat) return;
@@ -135,6 +167,22 @@ function renderFeatured(r: RecipeViewModel): void {
   feat.querySelector<HTMLElement>('.feat-desc')!.textContent =
     r.description ?? 'Sem descrição.';
   feat.querySelector<HTMLElement>('.feat-r')!.innerHTML = `<i class="fa-solid ${r.icon}"></i>`;
+
+  // Estatísticas reais vindas do backend
+  const stats = feat.querySelector<HTMLElement>('.feat-stats');
+  if (stats) {
+    const prep = r.prep_time ? `${r.prep_time} min` : '—';
+    const servings = r.servings ? String(r.servings) : '—';
+    const rating =
+      r.rating_count > 0
+        ? `<i class="fa-solid fa-star"></i> ${r.average_rating.toFixed(1)}`
+        : '<i class="fa-regular fa-star"></i> —';
+    stats.innerHTML =
+      statHtml(prep, 'PREPARO') +
+      statHtml(servings, 'PORÇÕES') +
+      statHtml(rating, 'AVALIAÇÃO') +
+      statHtml(String(r.forks_count), r.forks_count === 1 ? 'FORK' : 'FORKS');
+  }
 
   const verBtn = feat.querySelector<HTMLAnchorElement>('.btn-feat');
   if (verBtn) verBtn.href = `receita.html?id=${r.id}`;
@@ -192,8 +240,11 @@ async function init(): Promise<void> {
     const recipes = await recipeService.getAll();
     allRecipes = recipes.map((r) => recipeMetaService.toViewModel(r));
 
-    if (allRecipes.length > 0) {
-      renderFeatured(allRecipes[0]);
+    const featured = pickFeatured(allRecipes);
+    if (featured) {
+      renderFeatured(featured);
+    } else {
+      renderFeaturedEmpty();
     }
     renderGrid(allRecipes);
   } catch {

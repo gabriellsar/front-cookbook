@@ -38,16 +38,6 @@
 
     <form id="create-form">
 
-      <!-- Foto da receita -->
-      <div class="upload-zone" id="upload-zone">
-        <div class="upload-ico"><i class="fa-solid fa-camera"></i></div>
-        <p class="upload-tx">
-          <span class="upload-link">Clique para enviar foto</span>
-          &nbsp;ou arraste aqui · JPG, PNG, WebP · máx. 10 MB
-        </p>
-        <input type="file" id="photo-input" accept="image/*" style="display:none">
-      </div>
-
       <!-- Dados básicos -->
       <div class="fl-group">
         <label class="fl-label" for="recipe-name">Nome da receita *</label>
@@ -61,12 +51,12 @@
 
       <div class="fl-row">
         <div class="fl-group">
-          <label class="fl-label" for="recipe-time">Tempo de preparo</label>
-          <input class="fl-input" id="recipe-time" type="text" placeholder="Ex: 45 minutos">
+          <label class="fl-label" for="recipe-time">Tempo de preparo (minutos)</label>
+          <input class="fl-input" id="recipe-time" type="number" min="1" placeholder="Ex: 45">
         </div>
         <div class="fl-group">
-          <label class="fl-label" for="recipe-servings">Rendimento / Porções</label>
-          <input class="fl-input" id="recipe-servings" type="text" placeholder="Ex: 8 fatias">
+          <label class="fl-label" for="recipe-servings">Rendimento (porções)</label>
+          <input class="fl-input" id="recipe-servings" type="number" min="1" placeholder="Ex: 8">
         </div>
       </div>
 

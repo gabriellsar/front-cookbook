@@ -59,17 +59,14 @@ function renderDetail(r: RecipeViewModel): void {
     `;
   }
 
-  // Meta bar — backend não fornece preparo/cozimento/dificuldade
+  // Meta bar — preparo e porções vêm do backend
   const setMv = (id: string, val: string) => {
     const el = getEl(id);
-    el?.querySelector<HTMLElement>('.d-mv')?.setAttribute('data-text', val);
     const mv = el?.querySelector<HTMLElement>('.d-mv');
     if (mv) mv.textContent = val;
   };
-  setMv('meta-time', '—');
-  setMv('meta-cook', '—');
-  setMv('meta-servings', '4');
-  setMv('meta-difficulty', '—');
+  setMv('meta-time', r.prep_time ? `${r.prep_time} min` : '—');
+  setMv('meta-servings', r.servings ? String(r.servings) : '—');
 
   // Descrição
   setText('recipe-desc', r.description ?? '');
@@ -237,11 +234,59 @@ function setupActions(r: RecipeViewModel): void {
     }
   }
 
-  // Rating — puramente visual
-  initRating();
-  getEl('btn-submit-review')?.addEventListener('click', () => {
-    showToast('Avaliações não são sincronizadas com o servidor nesta versão.', 'inf');
+  // Rating — sincronizado com o backend
+  let selectedRating = r.my_rating ?? 0;
+  renderRatingSummary(r.average_rating, r.rating_count, r.my_rating);
+  initRating((value) => {
+    selectedRating = value;
+  }, r.my_rating ?? 0);
+
+  const submitBtn = getEl<HTMLButtonElement>('btn-submit-review');
+  submitBtn?.addEventListener('click', async () => {
+    if (!isLoggedIn()) {
+      window.location.href = 'login.html';
+      return;
+    }
+    if (selectedRating < 1) {
+      showToast('Escolha de 1 a 5 estrelas antes de publicar.', 'inf');
+      return;
+    }
+    submitBtn.disabled = true;
+    try {
+      const updated = await recipeService.rate(r.id, selectedRating);
+      renderRatingSummary(updated.average_rating, updated.rating_count, updated.my_rating);
+      showToast('Avaliação registrada. Obrigado!', 'ok');
+    } catch (err) {
+      if (err instanceof ApiError) {
+        showToast(`Erro ${err.status} ao enviar avaliação.`, 'inf');
+      } else {
+        showToast('Erro inesperado ao avaliar.', 'inf');
+      }
+    } finally {
+      submitBtn.disabled = false;
+    }
   });
+}
+
+// Mostra a média atual e a nota do próprio usuário acima das estrelas.
+function renderRatingSummary(avg: number, count: number, mine: number | null): void {
+  const header = document.querySelector<HTMLElement>('.rating-box-h');
+  if (!header) return;
+
+  let summary = document.getElementById('rating-summary');
+  if (!summary) {
+    summary = document.createElement('div');
+    summary.id = 'rating-summary';
+    summary.style.cssText = 'font-size:.85rem;color:var(--ink3);margin:2px 0 10px';
+    header.after(summary);
+  }
+
+  const avgText =
+    count > 0
+      ? `<i class="fa-solid fa-star" style="color:var(--gold,#E0A500)"></i> <strong>${avg.toFixed(1)}</strong> · ${count} avaliação${count > 1 ? 'ões' : ''}`
+      : 'Seja a primeira pessoa a avaliar esta receita.';
+  const mineText = mine ? ` &nbsp;•&nbsp; sua nota: ${mine}★` : '';
+  summary.innerHTML = avgText + mineText;
 }
 
 // ── Init ───────────────────────────────────────────────────────────────────
@@ -271,7 +316,7 @@ async function init(): Promise<void> {
 
     renderDetail(vm);
     setupActions(vm);
-    initServingCalculator(4);
+    initServingCalculator(vm.servings ?? 4);
 
     // Busca forks desta receita
     const all = await recipeService.getAll();

@@ -5,6 +5,9 @@ export function initServingCalculator(base: number): void {
   baseServings = base;
   currentServings = base;
 
+  const display = document.getElementById('serv-count');
+  if (display) display.textContent = String(base);
+
   document.getElementById('serv-dec')?.addEventListener('click', () => changeServings(-1));
   document.getElementById('serv-inc')?.addEventListener('click', () => changeServings(+1));
 }

@@ -19,38 +19,6 @@
   font-weight: 300;
 }
 
-/* Zona de upload de imagem */
-.upload-zone {
-  border: 2px dashed rgba(24, 22, 15, .18);
-  border-radius: var(--rl);
-  padding: 2rem;
-  text-align: center;
-  cursor: pointer;
-  background: var(--cr2);
-  transition: all .2s;
-  margin-bottom: 1.25rem;
-}
-
-.upload-zone:hover {
-  border-color: var(--tr);
-  background: var(--tr3);
-}
-
-.upload-ico {
-  font-size: 2rem;
-  margin-bottom: 6px;
-}
-
-.upload-tx {
-  font-size: .8rem;
-  color: var(--ink3);
-}
-
-.upload-link {
-  color: var(--tr);
-  font-weight: 500;
-}
-
 /* Cabeçalho de fork (quando a receita é derivada) */
 .fork-origin-banner {
   background: var(--sl3);

@@ -1,0 +1,309 @@
+/* ════════════════════════════════════════════════════════════════
+   Camada de refinamento — classes introduzidas no redesign (ícones FA,
+   navegação responsiva, botões compactos, detalhes da receita).
+   Importada por último para refinar os componentes base.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Navegação ──────────────────────────────────────────────── */
+
+.nl { gap: 7px; }
+.nl i { font-size: .82em; opacity: .85; }
+
+.nav-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--cr);
+  font-size: .82rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 6px 4px;
+}
+.nav-user i { color: var(--tr2); font-size: 1rem; }
+.nav-user:hover { color: var(--tr2); }
+
+.btn-o { display: inline-flex; align-items: center; gap: 6px; }
+
+/* Botão hamburger — oculto no desktop */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--cr);
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 6px 8px;
+}
+
+/* ── Botões com ícone ───────────────────────────────────────── */
+
+.btn-p, .btn-feat, .btn-feat-fork, .btn-submit, .btn-fork-main,
+.btn-fork-confirm, .sb-go { gap: 7px; }
+
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Botão de exclusão (perigo) */
+.btn-danger {
+  background: transparent;
+  border: 1.5px solid rgba(196, 61, 45, .4);
+  color: #C43D2D;
+  padding: 8px 14px;
+  border-radius: var(--r);
+  font-family: var(--sans);
+  font-size: .78rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .2s;
+}
+.btn-danger:hover { background: #C43D2D; color: #fff; border-color: #C43D2D; }
+
+/* Botões compactos (cartões do perfil) */
+.btn-mini {
+  background: transparent;
+  border: 1px solid rgba(24, 22, 15, .18);
+  color: var(--ink2);
+  padding: 5px 11px;
+  border-radius: var(--r);
+  font-family: var(--sans);
+  font-size: .73rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all .2s;
+}
+.btn-mini:hover { border-color: var(--tr); color: var(--tr); }
+
+.btn-mini-danger:hover { border-color: #C43D2D; color: #C43D2D; }
+
+/* ── Ícones nas "capas" de receita ──────────────────────────── */
+
+.rcard-img i,
+.feat-r i,
+.d-hero i {
+  color: rgba(24, 22, 15, .42);
+}
+
+.rcard-title[data-id] { cursor: pointer; }
+.rcard-title[data-id]:hover { color: var(--tr); }
+
+.rcard-meta {
+  align-items: center;
+  gap: 6px;
+}
+.rcard-meta i { color: var(--ink3); font-size: .8em; }
+
+.rcard-actions { display: flex; gap: 6px; margin-top: 10px; }
+
+.rcard-fork-info i { font-size: .85em; }
+
+/* ── Barra de estatísticas ──────────────────────────────────── */
+
+.stat-strip > div:not(.stat-live) { display: flex; flex-direction: column; }
+
+.stat-live {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: .72rem;
+  color: var(--ink3);
+}
+.stat-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ol2);
+  box-shadow: 0 0 0 0 rgba(122, 149, 72, .5);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(122, 149, 72, .45); }
+  70%  { box-shadow: 0 0 0 7px rgba(122, 149, 72, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(122, 149, 72, 0); }
+}
+
+/* ── Busca ──────────────────────────────────────────────────── */
+
+.sb-wrap { align-items: center; }
+.sb-ico {
+  display: flex;
+  align-items: center;
+  padding-left: 14px;
+  color: var(--ink3);
+  font-size: .9rem;
+}
+
+/* Estado de carregamento / vazio da grade */
+.grid-loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--ink3);
+  padding: 2.5rem 1rem;
+  font-size: .9rem;
+}
+.grid-loading i { margin-right: 6px; }
+
+/* ── Detalhe da receita: autor ──────────────────────────────── */
+
+.d-author-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: .9rem;
+  flex-wrap: wrap;
+}
+.d-author-av {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--tr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: .8rem;
+  color: #fff;
+}
+.d-author-name { font-size: .86rem; color: var(--ink2); }
+.d-author-date { font-size: .78rem; color: var(--ink3); display: inline-flex; align-items: center; gap: 5px; }
+.d-author-fork {
+  font-size: .72rem;
+  font-weight: 600;
+  background: var(--sl3);
+  color: var(--sl);
+  padding: 3px 10px;
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.d-hero i { font-size: 7rem; }
+
+/* Linhagem de fork */
+.d-fork-lineage-ico { font-size: 1.1rem; color: var(--sl); }
+.d-fork-lineage-k {
+  font-size: .7rem;
+  color: var(--sl);
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+/* Cadeado de segredo de família */
+.ing-lock { color: var(--tr); font-size: .82em; }
+
+/* ── Seção de forks ─────────────────────────────────────────── */
+
+.forks-tree-block { margin-bottom: .85rem; }
+.forks-tree-k {
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--sl);
+  margin-bottom: .5rem;
+  opacity: .75;
+}
+.fork-item-arrow { color: rgba(42, 74, 122, .4); margin-left: auto; font-size: .85rem; }
+.ftv-chip {
+  font-size: .75rem;
+  background: var(--sl3);
+  color: var(--sl);
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.btn-fork-block { width: 100%; justify-content: center; }
+
+/* ── Modal de fork: origem ──────────────────────────────────── */
+
+.fm-origin-ico { font-size: 1.1rem; color: var(--sl); }
+.fm-origin-k {
+  font-size: .63rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(42, 74, 122, .6);
+  margin-bottom: 1px;
+}
+.fm-origin-v { font-weight: 600; }
+.fm-note i { margin-top: 2px; }
+
+/* ── Formulário de receita ──────────────────────────────────── */
+
+.ing-form-head {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 7px;
+  padding-right: 32px;
+  margin-bottom: 5px;
+}
+.ing-form-head span {
+  font-size: .63rem;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--ink3);
+  font-weight: 600;
+}
+
+.sec-sub-h { display: flex; align-items: center; gap: 8px; }
+.sec-sub-h i { color: var(--tr); font-size: .92em; }
+
+.lock-label {
+  font-size: .75rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--tr);
+  cursor: pointer;
+}
+
+.fork-origin-k {
+  font-size: .63rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  opacity: .7;
+  display: block;
+}
+
+/* ── Perfil ─────────────────────────────────────────────────── */
+
+.prof-hd-info { flex: 1; position: relative; z-index: 1; }
+.prof-edit-btn { align-self: flex-start; position: relative; z-index: 1; }
+
+.prof-stats { flex-wrap: wrap; }
+
+.change-pw-card {
+  background: var(--cr2);
+  border-radius: var(--rl);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  max-width: 420px;
+  border: 1px solid rgba(24, 22, 15, .08);
+}
+.change-pw-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: .9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.change-pw-card .fl-group { margin-bottom: .7rem; }

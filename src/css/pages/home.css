@@ -168,19 +168,19 @@
 .sb-wrap input::placeholder { color: var(--ink3); }
 
 .sb-go {
-  background: var(--ink);
+  background: transparent;
   border: none;
-  color: var(--cr);
+  color: var(--ink);
   padding: 0 22px;
   font-family: var(--sans);
   font-size: .8rem;
   font-weight: 600;
   cursor: pointer;
   letter-spacing: .05em;
-  transition: background .2s;
+  transition: color .2s;
 }
 
-.sb-go:hover { background: var(--tr); }
+.sb-go:hover { color: var(--tr); }
 
 /* ── Receita em destaque ──────────────────────────────────── */
 

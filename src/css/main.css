@@ -1,3 +1,6 @@
+/* Ícones (bundlados localmente — sem dependência de CDN em runtime) */
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
 /* Fundação */
 @import './base/variables.css';
 @import './base/reset.css';
@@ -13,3 +16,7 @@
 @import './components/toast.css';
 @import './components/rating.css';
 @import './components/forms.css';
+@import './components/extras.css';
+
+/* Responsividade (deve vir por último) */
+@import './base/responsive.css';

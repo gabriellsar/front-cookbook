@@ -1,5 +1,7 @@
 import type { AuthState, LoginResponse } from '../types.ts';
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000/api';
+
 const KEYS = {
   access: 'panela_access',
   refresh: 'panela_refresh',
@@ -67,7 +69,7 @@ export async function refreshAccessToken(): Promise<boolean> {
   }
 
   try {
-    const res = await fetch('http://localhost:8000/api/auth/refresh/', {
+    const res = await fetch(`${BASE_URL}/auth/refresh/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ refresh }),

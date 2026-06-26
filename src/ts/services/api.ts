@@ -1,7 +1,7 @@
 import type { ApiRecipe, ApiIngredient, ApiStep, LoginResponse, RegisterResponse } from '../types.ts';
 import { getAccessToken, refreshAccessToken, clearAuth } from './auth.ts';
 
-const BASE_URL = 'http://localhost:8000/api';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000/api';
 
 export class ApiError extends Error {
   readonly status: number;

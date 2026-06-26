@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panela — Descobrir Receitas</title>
+  <link rel="stylesheet" href="../src/css/main.css">
+  <link rel="stylesheet" href="../src/css/pages/home.css">
+</head>
+<body>
+
+  <h2 class="sr-only">Panela — plataforma de receitas colaborativas com suporte a fork</h2>
+
+  <nav>
+    <a href="index.html" class="logo"><span class="logo-pip"></span>Panela</a>
+    <div class="nav-links">
+      <a href="index.html"       class="nl act">Descobrir</a>
+      <a href="form_receita.html" class="nl">+ Publicar</a>
+      <a href="perfil.html"       class="nl">Meu livro</a>
+    </div>
+    <div class="nav-r" id="nav-auth-container">
+      <a href="login.html" class="btn-o">Entrar</a>
+      <a href="login.html" class="btn-p">Criar conta</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-l">
+      <div class="hero-eyebrow">A cozinha colaborativa</div>
+      <h1 class="hero-h1">Cada receita,<br>uma <em>história</em><br>para contar.</h1>
+      <p class="hero-desc">Descubra, compartilhe e evolua receitas com a comunidade. Dê fork, adapte e crie a sua versão.</p>
+      <div class="hero-btns">
+        <a href="#grid-receitas" class="btn-feat">Explorar</a>
+        <a href="form_receita.html" class="btn-feat-fork">⑂ Publicar receita</a>
+      </div>
+    </div>
+    <div class="hero-r">
+      <div class="hero-r-top">🍄</div>
+      <div class="hero-r-bot">
+        <div style="background:#D4E8C8">🥗</div>
+        <div style="background:#E8C8C8">🍰</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Barra de estatísticas -->
+  <div class="stat-strip">
+    <div><div class="stat-n">4.2k</div><div class="stat-l">receitas publicadas</div></div>
+    <div><div class="stat-n">1.1k</div><div class="stat-l">forks criados</div></div>
+    <div><div class="stat-n">12.8k</div><div class="stat-l">cozinheiros ativos</div></div>
+    <div style="margin-left:auto;font-size:.7rem;color:var(--ink3)">Ao vivo</div>
+  </div>
+
+  <!-- Busca e filtros -->
+  <div class="search-bar">
+    <form id="search-form" class="sb-wrap">
+      <input type="text" id="search-input" placeholder="Buscar por receita, ingrediente, tag…">
+      <button type="submit" class="sb-go">Buscar</button>
+    </form>
+    <div class="filter-row" id="filters-container">
+      <span class="fl">Filtrar:</span>
+      <button class="chip on"      data-filter="all">Todas</button>
+      <button class="chip tr-chip" data-filter="vegano">🌱 Vegano</button>
+      <button class="chip"         data-filter="sem-gluten">🌾 Sem glúten</button>
+      <button class="chip"         data-filter="rapido">⚡ Rápido</button>
+      <button class="chip"         data-filter="brasileiro">🇧🇷 Brasileiro</button>
+      <button class="chip"         data-filter="italiano">🍝 Italiano</button>
+      <button class="chip"         data-filter="sobremesa">🍰 Sobremesas</button>
+      <button class="chip tr-chip" data-filter="forks">⑂ Com forks</button>
+    </div>
+  </div>
+
+  <!-- Receita em destaque -->
+  <div class="feat" id="featured-recipe">
+    <div class="feat-l">
+      <div class="feat-tag">Receita em destaque</div>
+      <h2 class="feat-h">Risoto de funghi<br>com <em>trufa negra</em></h2>
+      <p class="feat-desc">Um clássico italiano elevado com ingredientes nobres. Cremoso, perfumado e surpreendentemente acessível para fazer em casa.</p>
+      <div class="feat-stats">
+        <div><div class="feat-stat-v">45 min</div><div class="feat-stat-k">PREPARO</div></div>
+        <div><div class="feat-stat-v">4</div><div class="feat-stat-k">PORÇÕES</div></div>
+        <div><div class="feat-stat-v">★ 4.9</div><div class="feat-stat-k">AVALIAÇÃO</div></div>
+        <div><div class="feat-stat-v">7</div><div class="feat-stat-k">FORKS</div></div>
+      </div>
+      <div class="feat-actions">
+        <a href="receita.html" class="btn-feat">Ver receita →</a>
+        <button class="btn-feat-fork" data-recipe="Risoto de Funghi com Trufa Negra">⑂ Dar fork</button>
+      </div>
+    </div>
+    <div class="feat-r">🍄</div>
+  </div>
+
+  <!-- Grade de receitas -->
+  <section class="grid-section" id="grid-receitas">
+    <div class="sec-hd">
+      <h2 class="sec-title">Descobertas recentes</h2>
+      <span class="sec-link">Ver todas →</span>
+    </div>
+    <div class="rg" id="main-grid">
+      <p style="grid-column:1/-1;text-align:center;color:var(--ink3);padding:2rem">
+        A carregar receitas da comunidade…
+      </p>
+    </div>
+  </section>
+
+  <!-- Modal de fork -->
+  <div id="fork-modal-wrap" class="fork-modal-wrap">
+    <div class="fork-modal">
+      <button class="fm-close" id="fork-modal-close">×</button>
+      <div class="fm-icon">⑂</div>
+      <div class="fm-title">Dar fork na receita</div>
+      <div class="fm-sub">Crie sua própria versão adaptada. Sua receita ficará vinculada à original, formando uma árvore de derivações.</div>
+      <div class="fm-origin">
+        <span style="font-size:1rem">🍄</span>
+        <div>
+          <div style="font-size:.63rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(42,74,122,.6);margin-bottom:1px">Receita original</div>
+          <div id="fork-origin-name" style="font-weight:600"></div>
+        </div>
+      </div>
+      <label class="fm-label" for="fork-note">O que você vai adaptar? *</label>
+      <textarea id="fork-note" class="fm-input fm-textarea" placeholder="Ex: Substituí a trufa por gorgonzola e adicionei nozes…"></textarea>
+      <div class="fm-note">
+        <span>ℹ</span>
+        <span>Ao confirmar, uma cópia editável da receita será criada no seu perfil, já vinculada à original.</span>
+      </div>
+      <div class="fm-actions">
+        <button class="btn-cancel" id="fork-modal-cancel">Cancelar</button>
+        <button class="btn-fork-confirm" id="fork-modal-confirm">⑂ Criar fork e editar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script type="module" src="../src/ts/pages/app.ts"></script>
+</body>
+</html>

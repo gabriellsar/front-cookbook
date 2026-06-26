@@ -1,0 +1,284 @@
+.detail {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: .78rem;
+  color: var(--ink3);
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: color .2s;
+  background: none;
+  border: none;
+  font-family: var(--sans);
+  text-decoration: none;
+}
+
+.back-btn:hover { color: var(--tr); }
+
+/* Imagem/emoji de capa */
+.d-hero {
+  width: 100%;
+  height: 340px;
+  border-radius: var(--rl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Indicador de linhagem (receita derivada) */
+.d-fork-lineage {
+  background: var(--sl3);
+  border: 1px solid var(--sl2);
+  border-radius: var(--r);
+  padding: .75rem 1rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.fork-tree {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .78rem;
+  color: var(--sl);
+  font-weight: 500;
+  flex-wrap: wrap;
+}
+
+.fork-tree-node {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fork-connector {
+  color: rgba(42, 74, 122, .4);
+  font-size: .9rem;
+  font-weight: 700;
+}
+
+/* Tags e título */
+.d-tags {
+  display: flex;
+  gap: 7px;
+  margin-bottom: .9rem;
+  flex-wrap: wrap;
+}
+
+.d-tag {
+  font-size: .63rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ol);
+  background: var(--ol3);
+  padding: 3px 9px;
+  border-radius: 100px;
+}
+
+.d-title {
+  font-family: var(--serif);
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1.12;
+  color: var(--ink);
+  margin-bottom: .75rem;
+}
+
+/* Barra de metadados */
+.d-meta-bar {
+  display: flex;
+  gap: 1.75rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid rgba(24, 22, 15, .09);
+  border-bottom: 1px solid rgba(24, 22, 15, .09);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.d-mv {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.d-mk {
+  font-size: .65rem;
+  color: var(--ink3);
+  letter-spacing: .04em;
+  margin-top: 1px;
+}
+
+.d-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.d-desc {
+  font-size: .9rem;
+  color: var(--ink2);
+  line-height: 1.78;
+  max-width: 640px;
+  margin-bottom: 1.75rem;
+  font-weight: 300;
+}
+
+/* Layout de duas colunas (ingredientes + passos) */
+.d-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2.5rem;
+}
+
+@media (max-width: 680px) {
+  .d-grid { grid-template-columns: 1fr; }
+}
+
+/* Painel de ingredientes (sticky) */
+.ing-panel {
+  background: var(--cr2);
+  border-radius: var(--rl);
+  padding: 1.25rem;
+  height: fit-content;
+  position: sticky;
+  top: 76px;
+}
+
+.panel-h {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: .85rem;
+  padding-bottom: .65rem;
+  border-bottom: 1px solid rgba(24, 22, 15, .1);
+}
+
+/* Controle de porções */
+.serv-ctl {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: .9rem;
+  padding: 7px 11px;
+  background: #fff;
+  border-radius: var(--r);
+  border: 1px solid rgba(24, 22, 15, .1);
+}
+
+.serv-btn {
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(24, 22, 15, .18);
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: .95rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+
+.serv-btn:hover {
+  background: var(--ink);
+  color: var(--cr);
+  border-color: var(--ink);
+}
+
+.serv-n {
+  font-family: var(--serif);
+  font-size: .95rem;
+  font-weight: 600;
+  flex: 1;
+  text-align: center;
+}
+
+.serv-l { font-size: .7rem; color: var(--ink3); }
+
+/* Lista de ingredientes */
+.ing-list { list-style: none; }
+
+.ing-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 7px 0;
+  border-bottom: 1px dashed rgba(24, 22, 15, .09);
+  font-size: .82rem;
+  gap: 7px;
+}
+
+.ing-item:last-child { border-bottom: none; }
+
+.ing-n { color: var(--ink2); flex: 1; }
+
+.ing-q {
+  font-weight: 600;
+  color: var(--ink);
+  font-size: .8rem;
+  white-space: nowrap;
+}
+
+/* Modo de preparo */
+.steps-h {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+}
+
+.step {
+  display: flex;
+  gap: 1.1rem;
+  margin-bottom: 1.75rem;
+}
+
+.step-n {
+  flex-shrink: 0;
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--cr);
+  font-family: var(--serif);
+  font-size: .88rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.step-t {
+  font-family: var(--serif);
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+  font-size: .9rem;
+}
+
+.step-tx {
+  color: var(--ink2);
+  font-size: .84rem;
+  line-height: 1.72;
+  font-weight: 300;
+}

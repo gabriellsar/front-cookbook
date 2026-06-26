@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap');
+
+:root {
+  /* Cores de superfície */
+  --cr:  #F7F2EA;
+  --cr2: #EDE5D4;
+  --cr3: #E0D5C0;
+
+  /* Cores de texto */
+  --ink:  #18160F;
+  --ink2: #4A4538;
+  --ink3: #8A8070;
+
+  /* Terracota (ação primária) */
+  --tr:  #C0521E;
+  --tr2: #E8825A;
+  --tr3: #F8DDD1;
+
+  /* Oliva (tags / vegetariano) */
+  --ol:  #4A5E2A;
+  --ol2: #7A9548;
+  --ol3: #D8E8C0;
+
+  /* Dourado (avaliações) */
+  --gd:  #9A7210;
+  --gd2: #C8A030;
+  --gd3: #F8ECC8;
+
+  /* Slate-azul (fork) */
+  --sl:  #2A4A7A;
+  --sl2: #4A7AB8;
+  --sl3: #D8E8F8;
+
+  /* Tipografia */
+  --serif: 'Lora', Georgia, serif;
+  --sans:  'Outfit', system-ui, sans-serif;
+
+  /* Raios de borda */
+  --r:  6px;
+  --rl: 12px;
+}

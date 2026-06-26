@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panela — Publicar Receita</title>
+  <link rel="stylesheet" href="../src/css/main.css">
+  <link rel="stylesheet" href="../src/css/pages/form_receita.css">
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo"><span class="logo-pip"></span>Panela</a>
+    <div class="nav-links">
+      <a href="index.html"        class="nl">Descobrir</a>
+      <a href="form_receita.html" class="nl act">+ Publicar</a>
+      <a href="perfil.html"       class="nl">Meu livro</a>
+    </div>
+    <div class="nav-r" id="nav-auth-container">
+      <a href="login.html" class="btn-o">Entrar</a>
+    </div>
+  </nav>
+
+  <main class="create-wrap">
+
+    <h1 class="create-h">Publicar receita</h1>
+    <p class="create-sub">Compartilhe o que você cozinha. A comunidade pode dar fork e criar versões da sua receita.</p>
+
+    <!-- Indicador de fork (mostrado quando derivando de outra receita) -->
+    <div class="fork-origin-banner" id="fork-origin-banner" style="display:none">
+      <span style="font-size:1.2rem">⑂</span>
+      <div>
+        <span style="font-size:.63rem;letter-spacing:.06em;text-transform:uppercase;opacity:.7">Fork de</span>
+        <strong id="fork-origin-label"></strong>
+      </div>
+    </div>
+
+    <form id="create-form">
+
+      <!-- Foto da receita -->
+      <div class="upload-zone" id="upload-zone">
+        <div class="upload-ico">📷</div>
+        <p class="upload-tx">
+          <span class="upload-link">Clique para enviar foto</span>
+          &nbsp;ou arraste aqui · JPG, PNG, WebP · máx. 10 MB
+        </p>
+        <input type="file" id="photo-input" accept="image/*" style="display:none">
+      </div>
+
+      <!-- Dados básicos -->
+      <div class="fl-group">
+        <label class="fl-label" for="recipe-name">Nome da receita *</label>
+        <input class="fl-input" id="recipe-name" type="text" placeholder="Ex: Bolo de cenoura da vovó" required>
+      </div>
+
+      <div class="fl-group">
+        <label class="fl-label" for="recipe-desc">Descrição</label>
+        <textarea class="fl-input fl-ta" id="recipe-desc" placeholder="O que torna esta receita especial…"></textarea>
+      </div>
+
+      <div class="fl-row">
+        <div class="fl-group">
+          <label class="fl-label" for="recipe-time">Tempo de preparo</label>
+          <input class="fl-input" id="recipe-time" type="text" placeholder="Ex: 45 minutos">
+        </div>
+        <div class="fl-group">
+          <label class="fl-label" for="recipe-servings">Rendimento / Porções</label>
+          <input class="fl-input" id="recipe-servings" type="text" placeholder="Ex: 8 fatias">
+        </div>
+      </div>
+
+      <hr class="sec-divider">
+
+      <!-- Ingredientes -->
+      <div class="sec-sub-h">🧂 Ingredientes</div>
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:7px;padding-right:32px;margin-bottom:5px">
+        <span style="font-size:.63rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);font-weight:600">Quantidade</span>
+        <span style="font-size:.63rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);font-weight:600">Ingrediente</span>
+      </div>
+      <div id="ingredients-form">
+        <div class="ing-form-row">
+          <input class="fl-input" type="text" placeholder="Ex: 300g">
+          <input class="fl-input" type="text" placeholder="Ex: farinha de trigo">
+          <button type="button" class="btn-rm" aria-label="Remover ingrediente">×</button>
+        </div>
+        <div class="ing-form-row">
+          <input class="fl-input" type="text" placeholder="Ex: 3">
+          <input class="fl-input" type="text" placeholder="Ex: ovos">
+          <button type="button" class="btn-rm" aria-label="Remover ingrediente">×</button>
+        </div>
+      </div>
+      <button type="button" class="btn-add" id="btn-add-ingredient">+ ingrediente</button>
+
+      <hr class="sec-divider">
+
+      <!-- Modo de preparo -->
+      <div class="sec-sub-h">📋 Modo de preparo</div>
+      <div id="steps-form">
+        <div class="step-form-row">
+          <div class="step-n-form">1</div>
+          <textarea class="fl-input fl-ta" style="min-height:70px" placeholder="Descreva o primeiro passo…"></textarea>
+        </div>
+        <div class="step-form-row">
+          <div class="step-n-form">2</div>
+          <textarea class="fl-input fl-ta" style="min-height:70px" placeholder="Continue o preparo…"></textarea>
+        </div>
+      </div>
+      <button type="button" class="btn-add" id="btn-add-step">+ etapa</button>
+
+      <hr class="sec-divider">
+
+      <!-- Tags -->
+      <div class="sec-sub-h">🏷️ Tags</div>
+      <div class="tag-grid" id="tag-grid">
+        <button type="button" class="tag-opt" data-tag="vegano">🌱 Vegano</button>
+        <button type="button" class="tag-opt" data-tag="vegetariano">🥛 Vegetariano</button>
+        <button type="button" class="tag-opt" data-tag="sem-gluten">🌾 Sem glúten</button>
+        <button type="button" class="tag-opt" data-tag="rapido">⚡ Rápido</button>
+        <button type="button" class="tag-opt" data-tag="cafe-da-manha">🍳 Café da manhã</button>
+        <button type="button" class="tag-opt" data-tag="jantar">🌙 Jantar</button>
+        <button type="button" class="tag-opt" data-tag="sobremesa">🍰 Sobremesa</button>
+        <button type="button" class="tag-opt" data-tag="brasileiro">🇧🇷 Brasileiro</button>
+        <button type="button" class="tag-opt" data-tag="italiano">🇮🇹 Italiano</button>
+        <button type="button" class="tag-opt" data-tag="apimentado">🌶️ Apimentado</button>
+      </div>
+
+      <hr class="sec-divider">
+
+      <div class="fl-group">
+        <label class="fl-label" for="recipe-video">Vídeo do preparo (opcional)</label>
+        <input class="fl-input" id="recipe-video" type="url" placeholder="Cole link do YouTube…">
+      </div>
+
+      <button type="submit" class="btn-submit">Publicar receita</button>
+    </form>
+  </main>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script type="module" src="../src/ts/pages/form_receita.ts"></script>
+</body>
+</html>

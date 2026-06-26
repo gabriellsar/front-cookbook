@@ -1,0 +1,191 @@
+/* Botão contornado (nav / ação secundária) */
+.btn-o {
+  background: transparent;
+  border: 1px solid rgba(247, 242, 234, .22);
+  color: var(--cr);
+  padding: 6px 14px;
+  border-radius: var(--r);
+  font-family: var(--sans);
+  font-size: .78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color .2s;
+  text-decoration: none;
+}
+
+.btn-o:hover { border-color: rgba(247, 242, 234, .6); }
+
+/* Botão primário terracota */
+.btn-p {
+  background: var(--tr);
+  border: none;
+  color: #fff;
+  padding: 7px 16px;
+  border-radius: var(--r);
+  font-family: var(--sans);
+  font-size: .78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s;
+  text-decoration: none;
+}
+
+.btn-p:hover { background: #A84418; }
+
+/* Botão destaque (hero / featured) */
+.btn-feat {
+  background: var(--tr);
+  border: none;
+  color: #fff;
+  padding: 9px 18px;
+  border-radius: var(--r);
+  font-family: var(--sans);
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-feat:hover { background: #A84418; }
+
+/* Botão fork (contornado sobre fundo escuro) */
+.btn-feat-fork {
+  background: transparent;
+  border: 1px solid rgba(247, 242, 234, .25);
+  color: var(--cr);
+  padding: 8px 14px;
+  border-radius: var(--r);
+  font-family: var(--sans);
+  font-size: .8rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .2s;
+  text-decoration: none;
+}
+
+.btn-feat-fork:hover {
+  border-color: rgba(247, 242, 234, .6);
+  background: rgba(247, 242, 234, .06);
+}
+
+/* Botão fork pequeno (cartão de receita) */
+.btn-fork-sm {
+  background: transparent;
+  border: 1px solid rgba(42, 74, 122, .35);
+  color: var(--sl);
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-family: var(--sans);
+  font-size: .65rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all .2s;
+}
+
+.btn-fork-sm:hover {
+  background: var(--sl);
+  color: #fff;
+  border-color: var(--sl);
+}
+
+/* Botão fork principal (detalhe da receita) */
+.btn-fork-main {
+  background: var(--sl);
+  border: none;
+  color: #fff;
+  padding: 9px 16px;
+  border-radius: var(--r);
+  font-family: var(--sans);
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background .2s;
+}
+
+.btn-fork-main:hover { background: #1F3A68; }
+
+/* Botão favoritar */
+.btn-fav {
+  background: transparent;
+  border: 1.5px solid rgba(24, 22, 15, .18);
+  color: var(--ink2);
+  padding: 8px 14px;
+  border-radius: var(--r);
+  font-family: var(--sans);
+  font-size: .78rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all .2s;
+}
+
+.btn-fav:hover {
+  border-color: var(--tr);
+  color: var(--tr);
+}
+
+/* Botão submit (formulários) */
+.btn-submit {
+  width: 100%;
+  padding: 13px;
+  background: var(--tr);
+  border: none;
+  color: #fff;
+  font-family: var(--sans);
+  font-size: .9rem;
+  font-weight: 600;
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.btn-submit:hover { background: #A84418; }
+
+/* Botão adicionar linha (formulário dinâmico) */
+.btn-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: 1px dashed rgba(24, 22, 15, .22);
+  color: var(--ink3);
+  padding: 7px 12px;
+  border-radius: var(--r);
+  font-family: var(--sans);
+  font-size: .75rem;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.btn-add:hover {
+  border-color: var(--tr);
+  color: var(--tr);
+}
+
+/* Botão remover linha (formulário dinâmico) */
+.btn-rm {
+  background: transparent;
+  border: none;
+  color: var(--ink3);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 3px 7px;
+  border-radius: var(--r);
+  transition: color .2s;
+}
+
+.btn-rm:hover { color: #C43D2D; }

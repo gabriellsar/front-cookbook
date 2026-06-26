@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panela — Entrar</title>
+  <link rel="stylesheet" href="../src/css/main.css">
+</head>
+<body style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1.5rem">
+
+  <!-- Modal de login (renderizado como página completa) -->
+  <div class="modal" style="box-shadow:0 20px 60px rgba(24,22,15,.12)">
+    <a href="index.html" class="logo" style="margin-bottom:1.5rem;display:inline-flex">
+      <span class="logo-pip" style="background:var(--tr)"></span>
+      <span style="color:var(--ink)">Panela</span>
+    </a>
+
+    <!-- Abas -->
+    <div style="display:flex;border-bottom:2px solid rgba(24,22,15,.09);margin-bottom:1.25rem">
+      <button class="ptab on" id="tab-login"    data-panel="panel-login"    style="padding:8px 16px;font-size:.82rem">Entrar</button>
+      <button class="ptab"    id="tab-register" data-panel="panel-register" style="padding:8px 16px;font-size:.82rem">Criar conta</button>
+    </div>
+
+    <!-- Painel: Login -->
+    <div id="panel-login">
+      <div class="m-title">Bem-vindo de volta</div>
+      <div class="m-sub">Entre para acessar suas receitas e forks.</div>
+      <form id="form-login">
+        <div class="fl-group">
+          <label class="fl-label" for="login-email">Usuário</label>
+          <input class="fl-input" id="login-email" type="text" placeholder="seu_usuario" required>
+        </div>
+        <div class="fl-group">
+          <label class="fl-label" for="login-password">Senha</label>
+          <input class="fl-input" id="login-password" type="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-submit" style="margin-top:0">Entrar</button>
+      </form>
+      <p style="text-align:center;font-size:.75rem;color:var(--ink3);margin-top:.9rem">
+        Não tem conta?
+        <button class="ptab" id="switch-to-register" style="color:var(--tr);font-size:.75rem;padding:0;border:none">Criar agora</button>
+      </p>
+    </div>
+
+    <!-- Painel: Registro -->
+    <div id="panel-register" style="display:none">
+      <div class="m-title">Criar conta</div>
+      <div class="m-sub">Junte-se a milhares de cozinheiros apaixonados.</div>
+      <form id="form-register">
+        <div class="fl-group">
+          <label class="fl-label" for="reg-name">Nome de exibição</label>
+          <input class="fl-input" id="reg-name" type="text" placeholder="Como quer ser chamado?" required>
+        </div>
+        <div class="fl-group">
+          <label class="fl-label" for="reg-email">Email</label>
+          <input class="fl-input" id="reg-email" type="email" placeholder="seu@email.com" required>
+        </div>
+        <div class="fl-group">
+          <label class="fl-label" for="reg-password">Senha</label>
+          <input class="fl-input" id="reg-password" type="password" placeholder="Mínimo 8 caracteres" minlength="8" required>
+        </div>
+        <button type="submit" class="btn-submit" style="margin-top:0">Criar conta grátis</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script type="module" src="../src/ts/pages/auth.ts"></script>
+</body>
+</html>

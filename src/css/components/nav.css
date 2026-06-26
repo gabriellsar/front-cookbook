@@ -1,0 +1,68 @@
+nav {
+  background: var(--ink);
+  height: 58px;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  gap: 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+.logo {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--cr);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.logo-pip {
+  width: 7px;
+  height: 7px;
+  background: var(--tr);
+  border-radius: 50%;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0;
+  flex: 1;
+}
+
+.nl {
+  background: none;
+  border: none;
+  padding: 0 14px;
+  height: 58px;
+  font-family: var(--sans);
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--ink3);
+  cursor: pointer;
+  letter-spacing: .04em;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.nl:hover { color: var(--cr); }
+
+.nl.act {
+  color: var(--cr);
+  border-bottom-color: var(--tr);
+}
+
+.nav-r {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}

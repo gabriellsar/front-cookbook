@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panela — Detalhe da Receita</title>
+  <link rel="stylesheet" href="../src/css/main.css">
+  <link rel="stylesheet" href="../src/css/pages/receita.css">
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="logo"><span class="logo-pip"></span>Panela</a>
+    <div class="nav-links">
+      <a href="index.html"        class="nl">Descobrir</a>
+      <a href="form_receita.html" class="nl">+ Publicar</a>
+      <a href="perfil.html"       class="nl">Meu livro</a>
+    </div>
+    <div class="nav-r" id="nav-auth-container">
+      <a href="login.html" class="btn-o">Entrar</a>
+    </div>
+  </nav>
+
+  <main class="detail" id="recipe-detail">
+
+    <a href="index.html" class="back-btn">← Voltar</a>
+
+    <!-- Linhagem (visível apenas para forks) -->
+    <div class="d-fork-lineage" id="fork-lineage" style="display:none">
+      <div style="font-size:1rem">⑂</div>
+      <div>
+        <div style="font-size:.7rem;color:var(--sl);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px">Árvore desta receita</div>
+        <div class="fork-tree" id="fork-tree-breadcrumb"></div>
+      </div>
+    </div>
+
+    <!-- Imagem de capa -->
+    <div class="d-hero" id="recipe-hero" style="background:var(--tr3)"></div>
+
+    <!-- Tags -->
+    <div class="d-tags" id="recipe-tags"></div>
+
+    <!-- Título e autor -->
+    <h1 class="d-title" id="recipe-title"></h1>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:.9rem;flex-wrap:wrap" id="recipe-author-bar"></div>
+
+    <!-- Metadados e ações -->
+    <div class="d-meta-bar" id="recipe-meta-bar">
+      <div id="meta-time"><div class="d-mv"></div><div class="d-mk">PREPARO</div></div>
+      <div id="meta-cook"><div class="d-mv"></div><div class="d-mk">COZIMENTO</div></div>
+      <div id="meta-servings"><div class="d-mv"></div><div class="d-mk">PORÇÕES</div></div>
+      <div id="meta-difficulty"><div class="d-mv"></div><div class="d-mk">DIFICULDADE</div></div>
+      <div class="d-actions">
+        <button class="btn-fav" id="btn-fav">♡ Favoritar</button>
+        <button class="btn-fork-main" id="btn-fork">⑂ Dar fork</button>
+      </div>
+    </div>
+
+    <!-- Descrição -->
+    <p class="d-desc" id="recipe-desc"></p>
+
+    <!-- Ingredientes + Passos -->
+    <div class="d-grid">
+      <aside class="ing-panel">
+        <div class="panel-h">Ingredientes</div>
+        <div class="serv-ctl">
+          <button class="serv-btn" id="serv-dec">−</button>
+          <span class="serv-n"  id="serv-count">4</span>
+          <span class="serv-l">porções</span>
+          <button class="serv-btn" id="serv-inc">+</button>
+        </div>
+        <ul class="ing-list" id="ingredients-list"></ul>
+      </aside>
+
+      <div>
+        <div class="steps-h">Modo de preparo</div>
+        <div id="steps-list"></div>
+
+        <!-- Forks desta receita -->
+        <div class="forks-section" id="forks-section" style="display:none">
+          <div class="forks-h">⑂ Forks desta receita</div>
+          <div class="forks-sub" id="forks-sub"></div>
+
+          <div style="margin-bottom:.85rem">
+            <div style="font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sl);margin-bottom:.5rem;opacity:.75">Árvore de derivações</div>
+            <div class="fork-tree-vis" id="fork-tree-vis"></div>
+          </div>
+
+          <div class="fork-list" id="fork-list"></div>
+
+          <button class="btn-fork-main" id="btn-create-fork" style="width:100%;justify-content:center">
+            ⑂ Criar meu próprio fork desta receita
+          </button>
+        </div>
+
+        <!-- Avaliação -->
+        <div class="rating-box">
+          <div class="rating-box-h">Avaliar esta receita</div>
+          <div class="stars" id="stars" role="radiogroup" aria-label="Avaliação">
+            <span role="radio" aria-label="1 estrela"   data-value="1">☆</span>
+            <span role="radio" aria-label="2 estrelas"  data-value="2">☆</span>
+            <span role="radio" aria-label="3 estrelas"  data-value="3">☆</span>
+            <span role="radio" aria-label="4 estrelas"  data-value="4">☆</span>
+            <span role="radio" aria-label="5 estrelas"  data-value="5">☆</span>
+          </div>
+          <textarea class="r-textarea" id="review-text" placeholder="Comentário opcional…"></textarea>
+          <button class="btn-p" id="btn-submit-review">Publicar avaliação</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal de fork -->
+  <div id="fork-modal-wrap" class="fork-modal-wrap">
+    <div class="fork-modal">
+      <button class="fm-close" id="fork-modal-close">×</button>
+      <div class="fm-icon">⑂</div>
+      <div class="fm-title">Dar fork na receita</div>
+      <div class="fm-sub">Crie sua própria versão adaptada. Sua receita ficará vinculada à original, formando uma árvore de derivações.</div>
+      <div class="fm-origin">
+        <span style="font-size:1rem">🍄</span>
+        <div>
+          <div style="font-size:.63rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(42,74,122,.6);margin-bottom:1px">Receita original</div>
+          <div id="fork-origin-name" style="font-weight:600"></div>
+        </div>
+      </div>
+      <label class="fm-label" for="fork-note">O que você vai adaptar? *</label>
+      <textarea id="fork-note" class="fm-input fm-textarea" placeholder="Ex: Substituí a trufa por gorgonzola e adicionei nozes…"></textarea>
+      <div class="fm-note">
+        <span>ℹ</span>
+        <span>Ao confirmar, uma cópia editável da receita será criada no seu perfil, já vinculada à original.</span>
+      </div>
+      <div class="fm-actions">
+        <button class="btn-cancel" id="fork-modal-cancel">Cancelar</button>
+        <button class="btn-fork-confirm" id="fork-modal-confirm">⑂ Criar fork e editar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script type="module" src="../src/ts/pages/receita.ts"></script>
+</body>
+</html>

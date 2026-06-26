@@ -1,0 +1,35 @@
+.av {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--tr3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .6rem;
+  font-weight: 600;
+  color: var(--tr);
+  flex-shrink: 0;
+}
+
+/* Variante oliva (autores veganos/vegetarianos) */
+.av.ol { background: var(--ol3); color: var(--ol); }
+
+/* Variante slate (forks) */
+.av.sl { background: var(--sl3); color: var(--sl); }
+
+.aname {
+  font-size: .75rem;
+  font-weight: 500;
+  color: var(--ink2);
+}
+
+/* Exibição compacta de avaliação (estrela + nota) */
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--gd);
+}

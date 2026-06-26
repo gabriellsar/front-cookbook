@@ -1,0 +1,45 @@
+.filter-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Rótulo "Filtrar:" */
+.fl {
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  color: var(--ink3);
+  text-transform: uppercase;
+}
+
+.chip {
+  padding: 4px 12px;
+  border-radius: 100px;
+  border: 1px solid rgba(24, 22, 15, .18);
+  font-size: .72rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--ink2);
+  background: transparent;
+  transition: all .2s;
+  font-family: var(--sans);
+}
+
+.chip:hover,
+.chip.on {
+  background: var(--ink);
+  color: var(--cr);
+  border-color: var(--ink);
+}
+
+/* Variante terracota (chip de fork/especial) */
+.chip.tr-chip { border-color: var(--tr); color: var(--tr); }
+
+.chip.tr-chip.on,
+.chip.tr-chip:hover {
+  background: var(--tr);
+  color: #fff;
+  border-color: var(--tr);
+}
